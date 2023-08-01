@@ -1,5 +1,12 @@
 const Car= require ("../models/cars")
-
+//create a new car
+exports.newCar = async (req, res, next)=>{
+    const car =  await Car.create(req.body);
+    res.status(201).json({
+        success:true,
+        car
+    })
+},
 
 
 //get all cars

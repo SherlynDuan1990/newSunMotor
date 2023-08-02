@@ -1,4 +1,5 @@
 const Car= require ("../models/cars")
+const ErrorHandler=require("../utils/errorHandler")
 
 
 
@@ -18,9 +19,7 @@ exports.getCars= async (req, res, next)=>{
 exports.getSingleCar= async (req, res, next)=>{
     const car= await Car.findById(req.params.id);
     if (!car) {
-        return res.status(404).json({
-                success:false,
-                message: "car not found" })
+        return next(new ErrorHandler("babysitter not found", 404))
     }
     res.status(200).json({
         success:true,

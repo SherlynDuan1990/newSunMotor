@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "SET NODE_ENV= DEVELOPMENT& nodeMON backend/server",
-    "prod": "SET NODE_ENV= PRODUCTION& nodeMON backend/server"
+    "dev": "SET NODE_ENV= DEVELOPMENT& nodemon backend/server",
+    "prod": "SET NODE_ENV= PRODUCTION& nodemon backend/server",
+    "seeder": "node backend/utils/seeder.js"
     
 
   },

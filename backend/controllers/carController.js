@@ -1,10 +1,11 @@
 const Car= require ("../models/cars")
 const ErrorHandler=require("../utils/errorHandler")
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors")
 
 
 
 //get all cars  => /api/v1/cars
-exports.getCars= async (req, res, next)=>{
+exports.getCars= catchAsyncErrors (async (req, res, next)=>{
 
     const cars= await Car.find()
 
@@ -13,31 +14,31 @@ exports.getCars= async (req, res, next)=>{
         count: cars.length,
         cars
     })
-},
+}),
 
 //get a sigle car /api/v1/car/:id
-exports.getSingleCar= async (req, res, next)=>{
+exports.getSingleCar= catchAsyncErrors (async (req, res, next)=>{
     const car= await Car.findById(req.params.id);
     if (!car) {
-        return next(new ErrorHandler("babysitter not found", 404))
+        return next(new ErrorHandler("car not found", 404))
     }
     res.status(200).json({
         success:true,
         car
     })
-},
+}),
 
 //create a new car => /api/v1/admin/car/new
-exports.newCar = async (req, res, next)=>{
+exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
     const car =  await Car.create(req.body);
     res.status(201).json({
         success:true,
         car
     })
-},
+}),
 
 //update cars=> /api/v1/admin/car/:id
-exports.updateCar= async (req, res, next)=>{
+exports.updateCar= catchAsyncErrors (async (req, res, next)=>{
     let car= await Car.findById(req.params.id);
     if (!car) {
         return res.status(404).json({
@@ -56,10 +57,10 @@ exports.updateCar= async (req, res, next)=>{
         car
     })
 
-},
+}),
 
 //delete cars=> /api/v1/admin/car/:id
-exports.deleteCar= async (req, res, next)=>{
+exports.deleteCar= catchAsyncErrors (async (req, res, next)=>{
     let car= await Car.findById(req.params.id);
     if (!car) {
         return res.status(404).json({
@@ -74,4 +75,4 @@ exports.deleteCar= async (req, res, next)=>{
         message:"car is deleted"
     })
 
-}
+})

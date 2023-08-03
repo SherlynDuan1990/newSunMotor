@@ -1,17 +1,26 @@
 const Car= require ("../models/cars")
 const ErrorHandler=require("../utils/errorHandler")
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors")
+const APIFeatures=require("../utils/APIFeatures")
 
 
 
 //get all cars  => /api/v1/cars
 exports.getCars= catchAsyncErrors (async (req, res, next)=>{
+    const resPerPage = 6; 
+    const carCount = await Car.countDocuments();
+    
 
-    const cars= await Car.find()
+    const apiFeatures= new APIFeatures(Car.find(), req.query)
+                        .search()
+                        .filter()
+                        .pagination(resPerPage)
+    const cars= await apiFeatures.query
 
     res.status(200).json({
         success:true,
         count: cars.length,
+        carCount,
         cars
     })
 }),

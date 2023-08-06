@@ -37,9 +37,50 @@ exports.getSingleCar= catchAsyncErrors (async (req, res, next)=>{
     })
 }),
 
+// add a test drive booking to a car  /api/v1/car/:id/testdrive
+exports.bookTestdrive= catchAsyncErrors (async (req, res) => {
+    const car= await Car.findById(req.params.id);
+    
+    const {
+    date,
+    time,
+    email,
+    fullName,
+    phoneNumber,
+    dateOfBirth,
+    drivingLicense,
+    } = req.body;
+
+
+    if (!car) {
+        return next(new ErrorHandler("car not found", 404))
+    }
+
+    // Create a new test drive booking
+    const testDrive = {
+    date,
+    time,
+    customer: {
+        email,
+        fullName,
+        phoneNumber,
+        dateOfBirth,
+        drivingLicense,
+    },
+    };
+  
+    // Add the test drive booking to the car's testdrives array
+    car.testdrives.push(testDrive);
+  
+      // Save the updated car document
+      await car.save();
+  
+      return res.status(201).json({ success: true, message: 'Test drive booked successfully' } )
+}),
+
 //create a new car => /api/v1/admin/car/new
 exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
-    req.body.user=req.user.id;
+    
     
     const car =  await Car.create(req.body);
     res.status(201).json({

@@ -6,7 +6,8 @@ const {
     newCar, 
     getSingleCar,
     updateCar,
-    deleteCar} = require ("../controllers/carController")
+    deleteCar,
+    bookTestdrive} = require ("../controllers/carController")
 
 const {isAuthenticatedUser, authorizeRoles}= require ("../middlewares/auth")
 
@@ -14,6 +15,8 @@ router.route("/cars").get(getCars);
 
 
 router.route("/car/:id").get(getSingleCar);
+
+router.route("/car/:id/testdrive").post(bookTestdrive);
 
 router.route("/admin/car/new").post(isAuthenticatedUser, authorizeRoles("admin"),newCar);
 

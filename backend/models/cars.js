@@ -1,4 +1,39 @@
 const mongoose=require("mongoose")
+
+const testDriveSchema = new mongoose.Schema({
+    
+    date: {
+      type: Date,
+      required: true,
+    },
+    time: {
+      type: String,
+      required: true,
+    },
+    customer: {
+      email: {
+        type: String,
+        required: true,
+      },
+      fullName: {
+        type: String,
+        required: true,
+      },
+      phoneNumber: {
+        type: String,
+        required: true,
+      },
+      dateOfBirth: {
+        type: Date,
+        required: true,
+      },
+      drivingLicense: {
+        type: String,
+        required: true,
+      }
+    }
+  })
+  
 const carsSchema = new mongoose.Schema ({
     title :{type:String,
         required: [true, "please enter title"],
@@ -91,12 +126,11 @@ const carsSchema = new mongoose.Schema ({
     wofExpire: { 
         type:Date,
         default: Date.now,
-        default: "N/A"
     },
     regoExpire: { 
         type:Date,
-        default: Date.now,
-        default: "N/A"
+        default: Date.now
+        
     },
     numberOfOwners: { 
         type:Number,
@@ -118,18 +152,12 @@ const carsSchema = new mongoose.Schema ({
     }],
     features: [{ type: String }],
     
-
-    user:{
-        type: mongoose.Schema.ObjectId,
-        ref: "user",
-        required: true
-    },
+    testdrives: [testDriveSchema],
     
     createdAt: { 
         type:Date,
         default: Date.now
     }
-
 })
 
 

@@ -39,6 +39,8 @@ exports.getSingleCar= catchAsyncErrors (async (req, res, next)=>{
 
 //create a new car => /api/v1/admin/car/new
 exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
+    req.body.user=req.user.id;
+    
     const car =  await Car.create(req.body);
     res.status(201).json({
         success:true,

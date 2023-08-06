@@ -119,6 +119,12 @@ const carsSchema = new mongoose.Schema ({
     features: [{ type: String }],
     
 
+    user:{
+        type: mongoose.Schema.ObjectId,
+        ref: "user",
+        required: true
+    },
+    
     createdAt: { 
         type:Date,
         default: Date.now

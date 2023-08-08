@@ -1,25 +1,43 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useEffect} from 'react'
 import Metadata from './layout/Metadata';
 
-const Stock = () => {
-  return (
-   
+import Car from "./car/Car";
 
-        
-            <Fragment>
-             <Metadata title={"Quality used cars"}/>
-             <section id="products" className="container mt-5">
-                
-                 
-             </section>
-             </Fragment>
-           
+import {useDispatch, useSelector} from "react-redux";
+import { getCars } from '../actions/carActions';
+
+const Stock = () => {
+
+  const dispatch=useDispatch();
+  const {loading, cars, error, carCount} = useSelector (state => state.cars)
+  
+  useEffect (()=>{
+
+    dispatch(getCars());
+
+      
+  }, [dispatch])
+
+  return (
+      <Fragment>
+      <Metadata title={"Quality used cars"}/>
+      <section id="cars" className="container mt-5">
+        <div className='row'>
+          {cars && cars.map(car=>(
+                  <Car key={car._id} car={car} />          
+                            
+          ))} 
+      
+        </div>
+      </section>
+      </Fragment>)
+      
    
-       
+  }    
 
     
 
-  )
-}
+  
+
 
 export default Stock

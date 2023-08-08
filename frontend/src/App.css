@@ -130,7 +130,7 @@ nav {
 #view_btn {
   background-color: #438A38;
   color: white;
-  
+
 }
 
 .card-img-top {
@@ -276,8 +276,8 @@ footer {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #BE7575;
-  border-color: #BE7575 transparent;
+  border: 6px solid #4E7299;
+  border-color: #4E7299 transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {

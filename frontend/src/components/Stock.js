@@ -1,5 +1,6 @@
 import React, {Fragment, useEffect} from 'react'
 import Metadata from './layout/Metadata';
+import Loader from "./layout/Loader"
 
 import Car from "./car/Car";
 
@@ -19,18 +20,23 @@ const Stock = () => {
   }, [dispatch])
 
   return (
+    <Fragment>
+      {loading ? <Loader/> : (
       <Fragment>
-      <Metadata title={"Quality used cars"}/>
-      <section id="cars" className="container mt-5">
-        <div className='row'>
-          {cars && cars.map(car=>(
-                  <Car key={car._id} car={car} />          
-                            
-          ))} 
+        <Metadata title={"Quality used cars"}/>
+        <section id="cars" className="container mt-5">
+          <div className='row'>
+            {cars && cars.map(car=>(
+                    <Car key={car._id} car={car} />          
+                              
+            ))} 
+        
+          </div>
+        </section>
+      </Fragment>
+      )}
       
-        </div>
-      </section>
-      </Fragment>)
+    </Fragment>)
       
    
   }    

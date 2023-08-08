@@ -7,6 +7,9 @@ const APIFeatures=require("../utils/APIFeatures")
 
 //get all cars  => /api/v1/cars
 exports.getCars= catchAsyncErrors (async (req, res, next)=>{
+    
+    return next(new ErrorHandler("my error", 400))
+
     const resPerPage = 6; 
     const carCount = await Car.countDocuments();
     

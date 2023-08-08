@@ -21,9 +21,10 @@ export const getCars=()=> async (dispatch)=>{
     }
 
      catch (error){
+        console.log(error)
         dispatch({
             type: ALL_CARS_FAIL,
-            payload: error.response.data.message
+            payload: error.response.data.errMessage
         })
     }
 }

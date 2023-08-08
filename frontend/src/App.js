@@ -4,6 +4,7 @@ import React from 'react';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Navigation from './components/layout/Nav';
+import Stock from './components/Stock';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Navigation/>
         <div className="container container-fluid">
           <Routes>
-            
+          <Route path="/stock" element={<Stock/>} exact  />
           </Routes>
         </div>
         <Footer />

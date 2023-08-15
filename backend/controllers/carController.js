@@ -3,6 +3,7 @@ const ErrorHandler=require("../utils/errorHandler")
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors")
 const APIFeatures=require("../utils/APIFeatures")
 const sendEmail= require("../utils/sendEmail")
+const User = require('../models/user'); // Import the User model
 
 
 
@@ -40,87 +41,97 @@ exports.getSingleCar= catchAsyncErrors (async (req, res, next)=>{
 }),
 
 // add a test drive booking to a car  /api/v1/car/:id/testdrive
-exports.bookTestdrive= catchAsyncErrors (async (req, res) => {
-    const car= await Car.findById(req.params.id);
-    
+exports.bookTestdrive = catchAsyncErrors(async (req, res) => {
+    const car = await Car.findById(req.params.id);
+
     const {
-    date,
-    time,
-    email,
-    fullName,
-    phoneNumber,
-    dateOfBirth,
-    drivingLicense,
-    } = req.body;
-
-
-    if (!car) {
-        return next(new ErrorHandler("car not found", 404))
-    }
-
-    // Create a new test drive booking
-    const testDrive = {
-    date,
-    time,
-    customer: {
+        date,
+        time,
         email,
         fullName,
         phoneNumber,
         dateOfBirth,
         drivingLicense,
-    },
+    } = req.body;
+
+    if (!car) {
+        return next(new ErrorHandler("car not found", 404));
+    }
+
+    // Create a new test drive booking
+    const testDrive = {
+        date,
+        time,
+        customer: {
+            email,
+            fullName,
+            phoneNumber,
+            dateOfBirth,
+            drivingLicense,
+        },
     };
-  
+
     // Add the test drive booking to the car's testdrives array
     car.testdrives.push(testDrive);
-  
+
     // Get the newly added test drive (the last one in the array)
     const newTestDrive = car.testdrives[car.testdrives.length - 1];
 
-    // Send email with the booking details to the customer
-    await sendEmail({
-    email: email, // Customer's email address
-        subject: "Test Drive Booking Confirmation",
-        message: `
-            Thank you for booking a test drive with us. Here are the details of your booking:
+    try {
+        // Fetch the admin user details
+        const adminUser = await User.findOne({ role: 'admin' });
 
-            Date: ${date}
-            Time: ${time}
-            Full Name: ${fullName}
-            Phone Number: ${phoneNumber}
-            Date of Birth: ${dateOfBirth}
-            Driving License: ${drivingLicense}
+        if (!adminUser) {
+            return next(new ErrorHandler('Admin user not found', 404));
+        }
 
-            We look forward to seeing you for the test drive. If you have any questions, please contact us.
+        // Send email with the booking details to the customer
+        await sendEmail({
+            email: email, // Customer's email address
+            subject: "Test Drive Booking Confirmation",
+            message: `
+                Thank you for booking a test drive with us. Here are the details of your booking:
 
-            Regards,
-            New Sun Motor
-        `,
-    });
+                Date: ${date}
+                Time: ${time}
+                Full Name: ${fullName}
+                Phone Number: ${phoneNumber}
+                Date of Birth: ${dateOfBirth}
+                Driving License: ${drivingLicense}
 
-    // Send email with the booking details
-    await sendEmail({
-        email: "henryaax@gmail.com", // Replace with the recipient email address
-        subject: "New Test Drive Booking",
-        message: `
-            A new test drive booking has been made.
-            Date: ${date}
-            Time: ${time}
-            Email: ${email}
-            Full Name: ${fullName}
-            Phone Number: ${phoneNumber}
-            Date of Birth: ${dateOfBirth}
-            Driving License: ${drivingLicense}
-        `,
-    });
+                We look forward to seeing you for the test drive. If you have any questions, please contact us.
 
+                Regards,
+                New Sun Motor
+            `,
+        });
 
-    res.status(201).json({
-        success: true,
-        message: "Test drive booked successfully",
-        testDrive: newTestDrive,
-    });
-}),
+        // Send email with the booking details to the admin
+        await sendEmail({
+            email: adminUser.email, // Use the admin's email
+            subject: "New Test Drive Booking",
+            message: `
+                A new test drive booking has been made.
+                Date: ${date}
+                Time: ${time}
+                Email: ${email}
+                Full Name: ${fullName}
+                Phone Number: ${phoneNumber}
+                Date of Birth: ${dateOfBirth}
+                Driving License: ${drivingLicense}
+            `,
+        });
+
+        res.status(201).json({
+            success: true,
+            message: "Test drive booked successfully",
+            testDrive: newTestDrive,
+        });
+    } catch (error) {
+        console.error(error);
+        return next(new ErrorHandler('Error sending email notifications', 500));
+    }
+});
 
 //create a new car => /api/v1/admin/car/new
 exports.newCar =catchAsyncErrors ( async (req, res, next)=>{

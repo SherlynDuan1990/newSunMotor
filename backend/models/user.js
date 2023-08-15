@@ -4,6 +4,29 @@ const bcrypt= require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
+const philosophySchema = new mongoose.Schema({
+    strands: [{
+        title: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    }
+    }],
+    images :[{
+        public_id:{
+            type:String,
+            required:true
+        },
+        url:{
+            type:String,
+            required:true
+        },
+    }],
+});
+
 const userSchema = new mongoose.Schema ({
     name:{
         type:String,
@@ -33,7 +56,8 @@ const userSchema = new mongoose.Schema ({
         default: Date.now
     },
     resetPasswordToken: String,
-    resetPasswordExpire: Date
+    resetPasswordExpire: Date,
+    philosophy: [philosophySchema],
 
 
 

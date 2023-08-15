@@ -9,7 +9,8 @@ const {
    resetPassword,
    getUserProfile,
    updatePassword,
-   updateProfile
+   updateProfile,
+   getAboutUs
 
    } = require ("../controllers/userController");
 
@@ -22,5 +23,6 @@ router.route("/password/reset/:token").put(resetPassword);
 router.route("/me").get(isAuthenticatedUser, getUserProfile);
 router.route("/password/update").put(isAuthenticatedUser,  updatePassword);
 router.route("/me/update").put(isAuthenticatedUser, updateProfile);
+router.get('/aboutUs', getAboutUs);
 
 module.exports=router;

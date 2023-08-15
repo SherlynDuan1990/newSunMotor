@@ -7,12 +7,13 @@ const crypto = require("crypto");
 
 //register a user => /api/v1/admin/register
 exports.registerUser = catchAsyncErrors (async (req, res, next)=>{
-    const { name, email, password, role}= req.body;
+    const { name, email, password, role, philosophy}= req.body;
     const user= await User.create({
         name,
         email,
         password,
-        role
+        role,
+        philosophy
 
     })
 
@@ -177,4 +178,29 @@ exports.updateProfile =catchAsyncErrors (async (req, res, next)=>{
         success:true
     })
 })
+
+
+
+// Controller to fetch all philosophy data  =>api/v1/aboutUs
+exports.getAboutUs = async (req, res, next) => {
+    try {
+        const user = await User.findOne({  role: 'admin' }); // Find the user by email
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        const philosophy = user.philosophy; 
+
+        res.status(200).json({ success: true, philosophy });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+
+
+
+
+
+
 

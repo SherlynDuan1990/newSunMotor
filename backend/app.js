@@ -13,9 +13,13 @@ app.use(cookieParser())
 //import all routes
 const cars= require ("./routes/cars");
 const user= require ("./routes/user");
+const enquiries= require ("./routes/enquiry");
+
 
 app.use("/api/v1", cars)
 app.use("/api/v1", user)
+app.use("/api/v1", enquiries)
+
 
 //middleware to handle errors
 app.use(errorMiddleware);

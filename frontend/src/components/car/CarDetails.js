@@ -4,12 +4,15 @@ import Loader from '../layout/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCarDetails, clearErrors } from '../../actions/carActions';
 import { useAlert } from 'react-alert';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate} from 'react-router-dom';
+
+
 
 const CarDetails = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const navigate = useNavigate(); // Get the history object
 
   const { loading, error, car } = useSelector(state => state.carDetails);
 
@@ -29,6 +32,11 @@ const CarDetails = () => {
       ) : car ? (
         <Fragment>
           <Metadata title={'Quality Used Car online'} />
+          
+          {/* Back button */}
+          <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>
+            Back
+          </button>
 
           <div className="d-flex flex-column align-items-center">
             <div  className="col-12 img-container d-flex justify-content-center">

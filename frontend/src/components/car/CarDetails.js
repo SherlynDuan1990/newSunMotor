@@ -4,8 +4,8 @@ import Loader from '../layout/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCarDetails, clearErrors } from '../../actions/carActions';
 import { useAlert } from 'react-alert';
-import { useParams, Link, useNavigate} from 'react-router-dom';
-
+import { useParams, Link, useNavigate} from 'react-router-dom'; // useNaigate instead of useHistory in 
+import { Carousel } from "react-bootstrap"; 
 
 
 const CarDetails = () => {
@@ -27,11 +27,12 @@ const CarDetails = () => {
 
   return (
     <Fragment>
+
       {loading ? (
         <Loader />
       ) : car ? (
         <Fragment>
-          <Metadata title={'Quality Used Car online'} />
+          <Metadata title={car.title} />
           
           {/* Back button */}
           <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>
@@ -41,11 +42,18 @@ const CarDetails = () => {
           <div className="d-flex flex-column align-items-center">
             <div  className="col-12 img-container d-flex justify-content-center">
               {car.images && car.images.length > 0 && (
-                <img
-                  src={car.images[0].url}
-                  alt={car.title}
-                 
-                />
+                <Carousel pause="hover" slide={false} fade={true}>
+                {car.images.map((image) => (
+                  <Carousel.Item key={image.public_id}>
+                    <img
+                      className='d-block w-100'
+                      src={image.url}
+                      alt={car.title}
+                      style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+                    />
+                  </Carousel.Item>
+                ))}
+                </Carousel>
               )}
             </div>
 

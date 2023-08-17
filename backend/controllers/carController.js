@@ -24,6 +24,7 @@ exports.getCars= catchAsyncErrors (async (req, res, next)=>{
         success:true,
         count: cars.length,
         carCount,
+        resPerPage,
         cars
     })
 }),

@@ -21,7 +21,8 @@ export const carReducers =(state={cars:[]}, action)=>{
                 return {
                     loading:false,
                     cars:action.payload.cars,
-                    carCount:action.payload.carCount
+                    carCount:action.payload.carCount,
+                    resPerPage:action.payload.resPerPage
                 }
             case  ALL_CARS_FAIL:
                 return {

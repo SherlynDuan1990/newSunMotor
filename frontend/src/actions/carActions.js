@@ -10,10 +10,10 @@ import {
 
 } from "../constants/carConstants"
 
-export const getCars=()=> async (dispatch)=>{
+export const getCars=(currentPage=1)=> async (dispatch)=>{
     try{
         dispatch({type:ALL_CARS_REQUEST})
-        const {data} = await axios.get("/api/v1/cars")
+        const {data} = await axios.get(`/api/v1/cars/?page=${currentPage}`)
 
         dispatch({
             type: ALL_CARS_SUCCESS,

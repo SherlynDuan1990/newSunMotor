@@ -14,9 +14,9 @@ const Car = ({car}) => {
                               <div className="card-body d-flex flex-column">
                                 <div className="card-info">
                                     <h5 className="card-title">
-                                        <Link to={`/cars/${car._id} `} style={{ fontSize: '22px' }} >{car.title}</Link>
+                                        <Link to={`/car/${car._id} `} style={{ fontSize: '22px' }} >{car.title}</Link>
                                         <p className="card-text">${car.price}</p>
-                                        <Link to={`/cars/${car._id} `} className="btn btn-block" id="view_btn" >View Details</Link>
+                                        <Link to={`/car/${car._id} `} className="btn btn-block" id="view_btn" >View Details</Link>
                                     </h5>
                                     <div className="card-details">
                                         

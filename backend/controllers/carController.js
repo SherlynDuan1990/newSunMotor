@@ -18,7 +18,6 @@ exports.getCars= catchAsyncErrors (async (req, res, next)=>{
                         .search()
                         .filter()
                         .pagination(resPerPage)
-    console.log(apiFeatures.query)
    
     const cars= await apiFeatures.query
 

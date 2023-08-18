@@ -16,7 +16,7 @@ function App() {
         <Navigation/>
         <div className="container container-fluid">
           <Routes>
-          <Route path="/stock" element={<Stock/>} exact  />
+          <Route path="/stock" element={<Stock/>}  />
           <Route path="/car/:id" element={<CarDetails/>} exact  />
           <Route path="/" element={<Search/>} exact  />
           <Route path="/search" element={<Stock/>}   />

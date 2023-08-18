@@ -10,18 +10,34 @@ import {
 
 } from "../constants/carConstants"
 
-export const getCars=(keyword=" ", currentPage=1, yearRange, priceRange, kilometersRange)=> async (dispatch)=>{
-        console.log(keyword)
-        console.log(yearRange)
-        console.log(priceRange)
-        console.log(kilometersRange)
-    try{
-        dispatch({type:ALL_CARS_REQUEST})
-        
-        console.log (`/api/v1/cars/?keyword=${keyword}&page=${currentPage}&year[gte]=${yearRange[0]}&year[lte]=${yearRange[1]}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}&kilometers[gte]=${kilometersRange[0]}&kilometers[lte]${kilometersRange[1]}`)
-        const { data } = await axios.get(
-            `/api/v1/cars/?keyword=${keyword}&page=${currentPage}&year[gte]=${yearRange[0]}&year[lte]=${yearRange[1]}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}&kilometers[gte]=${kilometersRange[0]}&kilometers[lte]=${kilometersRange[1]}`
-          );
+export const getCars = (keyword = "", currentPage = 1, yearRange, priceRange, kilometersRange) => async (dispatch) => {
+    console.log(keyword);
+    console.log(yearRange);
+    console.log(priceRange);
+    console.log(kilometersRange);
+    
+    try {
+        dispatch({ type: ALL_CARS_REQUEST });
+
+        let url = `/api/v1/cars/?page=${currentPage}`;
+
+        if (keyword) {
+            url += `&keyword=${keyword}`;
+        }
+
+        if (yearRange && yearRange.length === 2) {
+            url += `&year[gte]=${yearRange[0]}&year[lte]=${yearRange[1]}`;
+        }
+
+        if (priceRange && priceRange.length === 2) {
+            url += `&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}`;
+        }
+
+        if (kilometersRange && kilometersRange.length === 2) {
+            url += `&kilometers[gte]=${kilometersRange[0]}&kilometers[lte]=${kilometersRange[1]}`;
+        }
+
+        const { data } = await axios.get(url);
 
        
         dispatch({
@@ -33,7 +49,6 @@ export const getCars=(keyword=" ", currentPage=1, yearRange, priceRange, kilomet
     }
 
      catch (error){
-        console.log(error)
         dispatch({
             type: ALL_CARS_FAIL,
             payload: error.response.data.errMessage

@@ -14,11 +14,17 @@ class APIFeatures {
             ]
         } : {};
 
-        
+      
 
-        this.query=this.query.find({...keyword})
-        return this
-    }
+        
+          this.query = this.query.find({
+            ...keyword,
+          });
+
+         
+          
+          return this;
+        }
 
     filter (){
         const queryCopy ={...this.queryStr};
@@ -30,7 +36,7 @@ class APIFeatures {
         //advanced filter for price, kilometers and year
         let queryStr=JSON.stringify(queryCopy)
         queryStr=queryStr.replace(/\b(gt|gte|lt|lte)\b/g, match=> `$${match}`)
-        console.log(queryStr)
+        
 
         this.query=this.query.find(JSON.parse(queryStr));
         return this

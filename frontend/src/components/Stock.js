@@ -7,6 +7,8 @@ import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCars, clearErrors } from '../actions/carActions';
 import Car from './car/Car';
+import {  useLocation} from 'react-router-dom'; 
+
 
 const Stock = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -14,14 +16,20 @@ const Stock = () => {
   const dispatch = useDispatch();
   const { loading, cars, error, carCount, resPerPage} = useSelector((state) => state.cars);
 
+  const location = useLocation();
+  const { keyword, yearRange, priceRange, kilometersRange } = location.state || {};
+ 
+
+ 
+
   useEffect(() => {
     if (error) {
       return alert.error(error); 
     
     }
 
-    dispatch(getCars(currentPage));
-  }, [dispatch, alert, error, currentPage]); // Moved 'error' after 'dispatch'
+    dispatch(getCars(keyword, currentPage, yearRange, priceRange, kilometersRange));
+  }, [dispatch, alert, error, keyword, currentPage, yearRange, priceRange, kilometersRange]); // Moved 'error' after 'dispatch'
 
   function setCurrentPageNo(pageNumber){
     setCurrentPage(pageNumber)

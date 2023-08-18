@@ -10,11 +10,20 @@ import {
 
 } from "../constants/carConstants"
 
-export const getCars=(currentPage=1)=> async (dispatch)=>{
+export const getCars=(keyword=" ", currentPage=1, yearRange, priceRange, kilometersRange)=> async (dispatch)=>{
+        console.log(keyword)
+        console.log(yearRange)
+        console.log(priceRange)
+        console.log(kilometersRange)
     try{
         dispatch({type:ALL_CARS_REQUEST})
-        const {data} = await axios.get(`/api/v1/cars/?page=${currentPage}`)
+        
+        console.log (`/api/v1/cars/?keyword=${keyword}&page=${currentPage}&year[gte]=${yearRange[0]}&year[lte]=${yearRange[1]}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}&kilometers[gte]=${kilometersRange[0]}&kilometers[lte]${kilometersRange[1]}`)
+        const { data } = await axios.get(
+            `/api/v1/cars/?keyword=${keyword}&page=${currentPage}&year[gte]=${yearRange[0]}&year[lte]=${yearRange[1]}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}&kilometers[gte]=${kilometersRange[0]}&kilometers[lte]=${kilometersRange[1]}`
+          );
 
+       
         dispatch({
             type: ALL_CARS_SUCCESS,
             payload: data
@@ -35,7 +44,7 @@ export const getCars=(currentPage=1)=> async (dispatch)=>{
 export const getCarDetails=(id)=> async (dispatch)=>{
     try{
         dispatch({type:CARS_DETAILS_REQUEST})
-        const {data} = await axios.get(`/api/v1/cars/${id}`)
+        const {data} = await axios.get(`/api/v1/car/${id}`)
 
 
         dispatch({

@@ -6,6 +6,7 @@ import Footer from './components/layout/Footer';
 import Navigation from './components/layout/Nav';
 import Stock from './components/Stock';
 import CarDetails from "./components/car/CarDetails"
+import Search from "./components/Search"
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           <Routes>
           <Route path="/stock" element={<Stock/>} exact  />
           <Route path="/car/:id" element={<CarDetails/>} exact  />
+          <Route path="/" element={<Search/>} exact  />
+          <Route path="/search" element={<Stock/>}   />
           </Routes>
         </div>
         <Footer />

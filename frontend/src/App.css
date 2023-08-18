@@ -37,10 +37,7 @@ nav {
   padding: 1rem 1rem;
 }
 
-#search_btn {
-  background-color: #BE7575;
-  color:white;
-}
+
 
 .input-group {
   width: 90%;
@@ -58,6 +55,21 @@ nav {
   padding: 0.4rem 1.8rem;
   font-family: calibri;
   color:white;
+}
+
+#search-btn{
+  width:8rem;
+  margin: 30px auto;
+  background-color: #4E7299;
+  padding: 0.4rem 1.8rem;
+  font-family: calibri;
+  color:white;
+  border-style: none;
+
+}
+
+.searchBy{
+  margin:30px auto;
 }
 
 #cart {
@@ -692,4 +704,32 @@ ul.CTAs a {
   font-size: 0.8rem;
   color: grey;
 }
+
+/* Custom handle icon */
+.rc-slider-handle {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: url('../public/images/car.png') no-repeat center center;
+  background-size: 100%;
+
+
+}
+
+.search {
+  background: url('../public/images/background.png') no-repeat center center;
+  padding: 20%;
+
+}
+
+/* Custom label styles */
+.form-label {
+  font-weight: bold;
+  font-size: 18px;
+  color: #2f455e;
+}
+
+
+
+
 

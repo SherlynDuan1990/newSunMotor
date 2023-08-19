@@ -729,7 +729,173 @@ ul.CTAs a {
   color: #2f455e;
 }
 
+/* Style for the entire TestDriveComponent */
+.testdrive-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
 
+/* Style for the Car Details section */
+.car-details-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Style for the Car Details container */
+.car-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+  
+}
+
+/* Style for the Car Image container */
+.img-container {
+  width: 50%;
+  margin-right: 50px;
+}
+
+/* Style for the Car Info container */
+.car-info {
+  width: 50%;
+}
+
+/* Style for the Car Title */
+.car-info h2 {
+  color: #438A38;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Style for the Time Picker section */
+.time-picker-section {
+  width: 100%;
+  margin-bottom: 20px;
+  border-style: inherit;
+}
+
+/* Style for the Time Picker container */
+.time-picker {
+  text-align: center;
+  border-style: none;
+
+}
+
+/* Style for the Customer Details section */
+.customer-details-section {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Style for the Customer Details container */
+.customer-details {
+  text-align: center;
+}
+
+/* Style for the Customer Details section heading */
+.customer-details h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Style for the form inputs */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style for the Confirm Button section */
+.confirm-button-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Style for the Confirm Button */
+.confirm-button button {
+  background-color: #438A38;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.customer-details-section {
+  border: 1px solid #4e7299;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #438a38;
+  margin-bottom: 10px;
+}
+
+.customer-details-container {
+  display: flex;
+}
+
+.left-form {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.right-form {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Additional styling for form fields can be added here */
+
+
+
+/* Style for the Time Picker section */
+.time-picker-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+
+
+/* Style for the Time Picker container */
+.time-picker-container {
+  border: 1px solid #4e7299;
+  padding: 10px;
+  width: 100%;
+}
+
+
+
+.date-picker {
+  border-style: none;
+}
 
 
 

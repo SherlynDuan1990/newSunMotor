@@ -6,15 +6,14 @@ import {
     CARS_DETAILS_REQUEST,
     CARS_DETAILS_SUCCESS,
     CARS_DETAILS_FAIL,
+    BOOK_TEST_DRIVE_REQUEST,
+    BOOK_TEST_DRIVE_SUCCESS,
+    BOOK_TEST_DRIVE_FAIL,
     CLEAR_ERRORS
 
 } from "../constants/carConstants"
 
 export const getCars = (keyword = "", currentPage = 1, yearRange, priceRange, kilometersRange) => async (dispatch) => {
-    console.log(keyword);
-    console.log(yearRange);
-    console.log(priceRange);
-    console.log(kilometersRange);
     
     try {
         dispatch({ type: ALL_CARS_REQUEST });
@@ -76,7 +75,23 @@ export const getCarDetails=(id)=> async (dispatch)=>{
         })
     }
 }
+export const bookTestdrive = (id, bookingData) => async (dispatch) => {
+    try {
+        dispatch({ type: BOOK_TEST_DRIVE_REQUEST });
 
+        const { data } = await axios.post(`/api/v1/car/${id}/testdrive`, bookingData);
+
+        dispatch({
+            type: BOOK_TEST_DRIVE_SUCCESS,
+            payload: data.testDrive,
+        });
+    } catch (error) {
+        dispatch({
+            type: BOOK_TEST_DRIVE_FAIL,
+            payload: error.response.data.errMessage,
+        });
+    }
+};
 
 
 //CLEAR ERRORS

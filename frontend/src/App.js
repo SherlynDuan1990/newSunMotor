@@ -7,6 +7,8 @@ import Navigation from './components/layout/Nav';
 import Stock from './components/Stock';
 import CarDetails from "./components/car/CarDetails"
 import Search from "./components/Search"
+import Testdrive from "./components/car/Testdrive" //component name needs to start with upper case letter
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <div className="container container-fluid">
           <Routes>
           <Route path="/stock" element={<Stock/>}  />
+          <Route path="/car/:id/testdrive" element={<Testdrive/>} exact  />
           <Route path="/car/:id" element={<CarDetails/>} exact  />
           <Route path="/" element={<Search/>} exact  />
           <Route path="/search" element={<Stock/>}   />

@@ -93,7 +93,7 @@ exports.bookTestdrive = catchAsyncErrors(async (req, res) => {
             subject: "Test Drive Booking Confirmation",
             message: `
                 Thank you for booking a test drive with us. Here are the details of your booking:
-
+                Car: ${car}
                 Date: ${date}
                 Time: ${time}
                 Full Name: ${fullName}
@@ -114,6 +114,7 @@ exports.bookTestdrive = catchAsyncErrors(async (req, res) => {
             subject: "New Test Drive Booking",
             message: `
                 A new test drive booking has been made.
+                Car: ${car}
                 Date: ${date}
                 Time: ${time}
                 Email: ${email}

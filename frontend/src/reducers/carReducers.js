@@ -85,7 +85,7 @@ const initialState = {
     testDrive: null,
 };
 
-const testDriveReducer = (state = initialState, action) => {
+export const testDriveReducer = (state = initialState, action) => {
     switch (action.type) {
         case BOOK_TEST_DRIVE_REQUEST:
             return { ...state, loading: true };
@@ -105,5 +105,3 @@ const testDriveReducer = (state = initialState, action) => {
             return state;
     }
 };
-
-export default testDriveReducer;

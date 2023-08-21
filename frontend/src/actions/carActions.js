@@ -75,11 +75,17 @@ export const getCarDetails=(id)=> async (dispatch)=>{
         })
     }
 }
+
+
+
 export const bookTestdrive = (id, bookingData) => async (dispatch) => {
     try {
         dispatch({ type: BOOK_TEST_DRIVE_REQUEST });
+        
 
         const { data } = await axios.post(`/api/v1/car/${id}/testdrive`, bookingData);
+
+        console.log(data)
 
         dispatch({
             type: BOOK_TEST_DRIVE_SUCCESS,

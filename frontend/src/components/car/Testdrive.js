@@ -50,6 +50,7 @@ const Testdrive = () => {
     };
 
 
+
   
     const handleDateChange = (date) => {
       setSelectedDate(date);
@@ -65,20 +66,19 @@ const Testdrive = () => {
 
 
 
-    const HandleConfirm = () => {
-        const { error, testDrive } = useSelector(state => state.testDrive);
-  
-        useEffect(() => {
-        if (error) {
-            alert.error(error);
-            dispatch(clearErrors());
-        }
-    
-        dispatch(bookTestdrive(id, bookingData ));
-        }, [dispatch, alert, error, id, bookingData]);
-
-            
-        };
+    const handleConfirm = () => {
+        dispatch(bookTestdrive(id, bookingData));
+        alert.success('Congratulations! You have successfully booked a test drive');
+         // Reset the state of input fields and selected date
+        setCustomerInfo({
+            email: '',
+            phoneNumber: '',
+            drivingLicense: '',
+            fullName: '',
+            dateOfBirth: ''
+        });
+        setSelectedDate(new Date());
+    };
   
     return (
       <Fragment>
@@ -189,7 +189,7 @@ const Testdrive = () => {
 
                 <div className="confirm-button-section">
                     <div className="confirm-button">
-                    <button onClick={HandleConfirm}>Confirm Booking</button>
+                    <button onClick={handleConfirm}>Confirm Booking</button>
                     </div>
                 </div>
             </div>

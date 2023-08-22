@@ -871,7 +871,7 @@ ul.CTAs a {
   margin-bottom: 15px;
 }
 
-/* Additional styling for form fields can be added here */
+
 
 
 
@@ -899,3 +899,24 @@ ul.CTAs a {
 
 
 
+.about-us-container {
+  padding: 20px;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+
+}
+
+.carousel-container{
+  margin: 0 auto; 
+  max-width: 70%; 
+  height: auto;
+}
+
+.strand-container {
+  margin-top: 20px;
+  padding:60px; 
+  background-color: rgba(67, 138, 56, 0.3);
+}

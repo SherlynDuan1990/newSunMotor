@@ -10,12 +10,11 @@ import {
 export const contactUs = (customerInfo) => async (dispatch) => {
     try {
         dispatch({ type: CONTACT_US_REQUEST });
-        console.log(customerInfo)
+        
 
 
         const { data } = await axios.post('/api/v1/enquiries', customerInfo);
-        console.log(data)
-
+        
 
         dispatch({
             type: CONTACT_US_SUCCESS,

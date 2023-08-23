@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import { Link } from 'react-router-dom';
 
 
 const Footer = () => {
@@ -35,7 +36,9 @@ const Footer = () => {
                 Sun: <span className="footer-emphasis">Closed</span>
               </p>
               <p>
-                <a href="/dealer-login" className="footer-link">Dealer Login</a>
+              <Link
+                  to="/login" className="footer-link">Dealer Login
+              </Link>
               </p>
             </div>
 

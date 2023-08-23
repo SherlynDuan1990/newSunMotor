@@ -55,6 +55,7 @@ nav {
   padding: 0.4rem 1.8rem;
   font-family: calibri;
   color:white;
+  border-style: none;
 }
 
 #search-btn{

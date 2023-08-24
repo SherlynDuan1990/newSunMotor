@@ -1,8 +1,16 @@
 import React, {Fragment} from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
+
 
 
 const Footer = () => {
+
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  const {user, loading } = useSelector((state) => state.auth);
+
   return (
     <Fragment>
       <footer className="footer" style={{ backgroundColor: '#134883' }}>
@@ -36,9 +44,13 @@ const Footer = () => {
                 Sun: <span className="footer-emphasis">Closed</span>
               </p>
               <p>
+
+            {!user && (
               <Link
-                  to="/login" className="footer-link">Dealer Login
+              to="/login" className="footer-link">Dealer Login
               </Link>
+            )}
+              
               </p>
             </div>
 

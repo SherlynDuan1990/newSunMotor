@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
+import { logout, clearErrors } from '../../actions/userActions';
 
 
 
@@ -10,6 +11,11 @@ const Footer = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
   const {user, loading } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
 
   return (
     <Fragment>
@@ -45,11 +51,19 @@ const Footer = () => {
               </p>
               <p>
 
-            {!user && (
-              <Link
-              to="/login" className="footer-link">Dealer Login
-              </Link>
-            )}
+            
+
+              {!user ? (
+                <Link to="/login" className="footer-link" style={{color:"white" , paddingLeft: "5px", fontSize:"22px"}}>
+                  Dealer Login
+                </Link>
+              ) : (
+                <div  >
+                <Link onClick={handleLogout} style={{color:"white" , paddingLeft: "5px", fontSize:"22px"}} to="/">
+                  Log out
+                </Link>
+              </div>
+              )}
               
               </p>
             </div>

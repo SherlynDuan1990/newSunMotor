@@ -35,14 +35,10 @@ const Header = () => {
                 <button className="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i className="material-icons" style={{ color: "#4E7299" }}>account_circle</i>
                 </button>
-                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                  <Link className="dropdown-item" style={{ color: "#438A38", fontSize:"22px"}} to="/">
-                    Log out
-                  </Link>
-                </div>
+
               </div>
             )}
-            </nav>  
+          </nav>  
 
             
     </Fragment>

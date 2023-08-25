@@ -4,6 +4,9 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     CLEAR_ERRORS,
+    LOGOUT_REQUEST, 
+    LOGOUT_SUCCESS, 
+    LOGOUT_FAIL 
   } from '../constants/userConstants';
   
   
@@ -29,6 +32,14 @@ import {
           error: action.payload,
           user:null, 
         };
+
+      case LOGOUT_REQUEST:
+        return { loading: true, ...state };
+      case LOGOUT_SUCCESS:
+        return { loading: false, user: null };
+      case LOGOUT_FAIL:
+        return { loading: false, error: action.payload };
+
       case CLEAR_ERRORS:
         return {
           ...state,
@@ -40,4 +51,4 @@ import {
   };
   
   
-  
+

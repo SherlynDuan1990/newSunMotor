@@ -24,32 +24,32 @@ const Navigation = () => {
       {user ? (
         <>
           <Link
-            to="/dashboard"
+            to="/admin/dashboard"
             onClick={() => handleLinkClick("Dashboard")}
             className={`nav-link ${activeLink === "Dashboard" ? "active" : ""}`}
           >
             Dashboard
           </Link>
           <Link
-            to="/stock"
+            to="/admin/stock"
             onClick={() => handleLinkClick("Stock")}
             className={`nav-link ${activeLink === "Stock" ? "active" : ""}`}
           >
             Stock
           </Link>
           <Link
-            to="/add-vehicle"
+            to="/admin/add-vehicle"
             onClick={() => handleLinkClick("Add a Vehicle")}
             className={`nav-link ${activeLink === "Add a Vehicle" ? "active" : ""}`}
           >
             Add a Vehicle
           </Link>
           <Link
-            to="/see-vehicle"
-            onClick={() => handleLinkClick("See a Vehicle")}
-            className={`nav-link ${activeLink === "See a Vehicle" ? "active" : ""}`}
+            to="/admin/sell-vehicle"
+            onClick={() => handleLinkClick("Sell a Vehicle")}
+            className={`nav-link ${activeLink === "Sell a Vehicle" ? "active" : ""}`}
           >
-            See a Vehicle
+            Sell a Vehicle
           </Link>
         </>
       ) : (

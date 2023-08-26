@@ -11,6 +11,7 @@ import Testdrive from "./components/car/Testdrive"
 import ContactUs from "./components/ContactUs"
 import AboutUs from "./components/AboutUs"
 import Login from "./components/user/Login"
+import AdminStock from "./components/AdminStock"
 
 function App() {
   return (
@@ -41,6 +42,7 @@ const WithHeaderFooterNav = () => (
         <Route path="/search" element={<Stock />} />
         <Route path="/contact" element={<ContactUs />} exact />
         <Route path="/about" element={<AboutUs />} exact />
+        <Route path="/admin/stock" element={<AdminStock />} exact />
       </Routes>
     </div>
     <Footer />

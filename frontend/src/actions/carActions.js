@@ -55,6 +55,50 @@ export const getCars = (keyword = "", currentPage = 1, yearRange, priceRange, ki
     }
 }
 
+export const getAdminCars = (keyword = "", currentPage = 1, yearRange, priceRange, kilometersRange) => async (dispatch) => {
+    
+    try {
+        dispatch({ type: ALL_CARS_REQUEST });
+
+        let url = `/api/v1/admin/cars/?page=${currentPage}`;
+
+        if (keyword) {
+            url += `&keyword=${keyword}`;
+        }
+
+        if (yearRange && yearRange.length === 2) {
+            url += `&year[gte]=${yearRange[0]}&year[lte]=${yearRange[1]}`;
+        }
+
+        if (priceRange && priceRange.length === 2) {
+            url += `&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}`;
+        }
+
+        if (kilometersRange && kilometersRange.length === 2) {
+            url += `&kilometers[gte]=${kilometersRange[0]}&kilometers[lte]=${kilometersRange[1]}`;
+        }
+
+        const { data } = await axios.get(url);
+
+        console.log(data)
+
+       
+        dispatch({
+            type: ALL_CARS_SUCCESS,
+            payload: data
+        })
+
+
+    }
+
+     catch (error){
+        dispatch({
+            type: ALL_CARS_FAIL,
+            payload: error.response.data.errMessage
+        })
+    }
+}
+
 export const getCarDetails=(id)=> async (dispatch)=>{
     try{
         dispatch({type:CARS_DETAILS_REQUEST})

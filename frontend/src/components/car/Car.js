@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-
-
+import axios from 'axios'; 
 
 const Car = ({ car }) => {
   const alert = useAlert();
-  const dispatch = useDispatch();
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const [showStatusOptions, setShowStatusOptions] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState('');
+
+  const handleStatusChange = async (status) => {
+    try {
+      await axios.put(`/api/v1/car/${car._id}/status`, { status });
+      alert.success('Car status updated successfully');
+      setShowStatusOptions(false);
+      setSelectedStatus('');
+      window.location.reload();
+    } catch (error) {
+      console.error('Error updating car status:', error);
+      alert.error('An error occurred while updating car status');
+    }
+  };
 
   return (
     <div className="col-sm-12 col-md-6 col-lg-4 my-3">
       <div className="card p-3 rounded">
         <div className="image-container">
-          <img className="card-img-top mx-auto" src={car.images[0].url} />
+          <img className="card-img-top mx-auto" src={car.images[0].url} alt={car.title} />
         </div>
         <div className="card-body">
           <div className="card-info">
@@ -23,6 +36,10 @@ const Car = ({ car }) => {
                 {car.title}
               </Link>
               <p className="card-text">${car.price}</p>
+              {user && (
+              <p className="card-text" style={{ fontSize: '18px' , color: "black"}}>{car.status}</p>
+
+              )}
             </h5>
             <div className="card-details">
               <span style={{ color: '#de9f18', fontSize: '16px' }}>
@@ -64,24 +81,37 @@ const Car = ({ car }) => {
                 >
                   Delete
                 </Link>
-                <Link
-                  to={`/car/${car._id}/change-status`}
-                  className="btn"
-                  style={{
-                    backgroundColor: '#685921',
-                    fontSize: '16px',
-                    color: 'white',
-                  }}
-                >
-                  Status
-                </Link>
+                <button
+                className="btn status-btn"
+                onClick={() => setShowStatusOptions(!showStatusOptions)}
+              >
+                Status
+              </button>
+              {showStatusOptions && (
+                <div className="status-options">
+                  <button
+                    className="btn status-option"
+                    onClick={() => handleStatusChange('listing')}
+                  >
+                    Listing
+                  </button>
+                  <button
+                    className="btn status-option"
+                    onClick={() => handleStatusChange('on hold')}
+                  >
+                    On Hold
+                  </button>
+                  <button
+                    className="btn status-option"
+                    onClick={() => handleStatusChange('sold')}
+                  >
+                    Sold
+                  </button>
+                  </div>
+                )}
               </div>
             ) : (
-              <Link
-                to={`/car/${car._id}`}
-                className="btn"
-                id="view_btn"
-              >
+              <Link to={`/car/${car._id}`} className="btn" id="view_btn">
                 View Details
               </Link>
             )}

@@ -919,3 +919,44 @@ ul.CTAs a {
   padding:60px; 
   background-color: rgba(67, 138, 56, 0.3);
 }
+
+
+.status-btn {
+  background-color: #685921;
+  font-size: 16px;
+  color: white;
+}
+
+.status-options {
+  width:120%;
+  size:14px;
+  position: absolute;
+  top: 130%; 
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(104, 89, 33, 0.5);
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: block;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999; /* Ensure it's above other content */
+}
+
+.status-option {
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.status-option:hover {
+  background-color:rgba(104, 89, 33, 0.9);
+}
+
+
+
+

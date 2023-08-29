@@ -186,3 +186,28 @@ exports.deleteCar= catchAsyncErrors (async (req, res, next)=>{
     })
 
 })
+
+
+exports.updateCarStatus = catchAsyncErrors(async (req, res, next) => {
+    let car = await Car.findById(req.params.id);
+    if (!car) {
+        return res.status(404).json({
+            success: false,
+            message: "Car not found"
+        });
+    }
+
+    const { status } = req.body;
+
+    car.status = status;
+    await car.save();
+
+    res.status(200).json({
+        success: true,
+        message: "Car status updated successfully",
+        car
+    });
+});
+
+
+

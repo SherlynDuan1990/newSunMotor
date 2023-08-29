@@ -73,7 +73,7 @@ const Car = ({ car }) => {
                     color: 'white',
                   }}
                 >
-                  Change Status
+                  Status
                 </Link>
               </div>
             ) : (

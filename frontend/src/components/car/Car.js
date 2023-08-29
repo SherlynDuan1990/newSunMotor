@@ -23,7 +23,10 @@ const Car = ({ car }) => {
     }
   };
 
-  return (
+  const shouldDisplayCar = user ? true : car.status.toLowerCase() === 'listing';
+
+
+  return shouldDisplayCar ? (
     <div className="col-sm-12 col-md-6 col-lg-4 my-3">
       <div className="card p-3 rounded">
         <div className="image-container">
@@ -119,7 +122,7 @@ const Car = ({ car }) => {
         </div>
       </div>
     </div>
-  );
-};
+  ): null;
+}
 
 export default Car;

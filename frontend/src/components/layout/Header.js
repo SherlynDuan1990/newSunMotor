@@ -7,10 +7,12 @@ import { Link } from 'react-router-dom';
 
 
 
+
 const Header = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
-  const {user, loading } = useSelector((state) => state.auth);
+  // const { user, loading } = useSelector((state) => state.auth);  due to the user state is initially being loaded when the page refreshes, so using user state as a condition to display different contents for different interfaces is not working as i expected
+  const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
 
 
   return (
@@ -30,7 +32,7 @@ const Header = () => {
                 <i style={{ fontSize: '100%', verticalAlign: 'middle' }}className="material-icons">email</i> Email: henryaax@gmail.com
             </div>
 
-            {user && (
+            {userFromLocalStorage && (
               <div className="ml-4 dropdown d-inline">
                 <button className="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i className="material-icons" style={{ color: "#4E7299" }}>account_circle</i>

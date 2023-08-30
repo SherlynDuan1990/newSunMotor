@@ -9,7 +9,8 @@ const Navigation = () => {
 
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { user, loading } = useSelector((state) => state.auth);
+  // const { user, loading } = useSelector((state) => state.auth);  due to the user state is initially being loaded when the page refreshes, so using user state as a condition to display different contents for different interfaces is not working as i expected
+  const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
 
   // State to keep track of the active link
   const [activeLink, setActiveLink] = useState("");
@@ -21,7 +22,7 @@ const Navigation = () => {
 
   return (
     <nav className="navigation">
-      {user ? (
+      {userFromLocalStorage ? (
         <>
           <Link
             to="/admin/dashboard"

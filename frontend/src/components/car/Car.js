@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const Car = ({ car }) => {
   const alert = useAlert();
-  const { user } = useSelector((state) => state.auth);
+  const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
   const [showStatusOptions, setShowStatusOptions] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
 
@@ -38,7 +38,7 @@ const Car = ({ car }) => {
                 {car.title}
               </Link>
               <p className="card-text">${car.price}</p>
-              {user && (
+              {userFromLocalStorage && (
               <p className="card-text" style={{ fontSize: '18px' , color: "black"}}>{car.status}</p>
 
               )}
@@ -59,7 +59,7 @@ const Car = ({ car }) => {
             </div>
           </div>
           <div className="d-flex justify-content-center mt-3">
-            {user ? (
+            {userFromLocalStorage ? (
               <div className="btn-group">
                 <Link
                   to={`/car/${car._id}/update`}

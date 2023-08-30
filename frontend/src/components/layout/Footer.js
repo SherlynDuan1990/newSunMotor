@@ -10,7 +10,8 @@ const Footer = () => {
 
   const alert = useAlert();
   const dispatch = useDispatch();
-  const {user, loading } = useSelector((state) => state.auth);
+  // const { user, loading } = useSelector((state) => state.auth);  due to the user state is initially being loaded when the page refreshes, so using user state as a condition to display different contents for different interfaces is not working as i expected
+  const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
 
   const handleLogout = () => {
     dispatch(logout());
@@ -51,19 +52,17 @@ const Footer = () => {
               </p>
               <p>
 
-            
-
-              {!user ? (
-                <Link to="/login" className="footer-link" style={{color:"white" , paddingLeft: "5px", fontSize:"22px"}}>
+              {!userFromLocalStorage ? (
+                <Link to="/login" className="footer-link" style={{ color: 'white', paddingLeft: '5px', fontSize: '22px' }}>
                   Dealer Login
                 </Link>
               ) : (
-                <div  >
-                <Link onClick={handleLogout} style={{color:"white" , paddingLeft: "5px", fontSize:"22px"}} to="/">
-                  Log out
-                </Link>
-              </div>
-              )}
+                <div>
+                  <Link onClick={handleLogout} style={{ color: 'white', paddingLeft: '5px', fontSize: '22px' }} to="/">
+                    Log out
+                  </Link>
+                </div>
+              )}     
               
               </p>
             </div>

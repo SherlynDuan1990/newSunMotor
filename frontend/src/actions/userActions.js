@@ -23,11 +23,11 @@ export const login = (email, password) => async (dispatch) => {
 
     const { data } = await axios.post('/api/v1/login', { email, password }, config);
   
-    console.log(data)
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data.user,
     });
+    localStorage.setItem('user', JSON.stringify(data.user));
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
@@ -45,6 +45,8 @@ export const logout = () => async (dispatch) => {
     const { data } = await axios.get('/api/v1/logout');
 
     dispatch({ type: LOGOUT_SUCCESS });
+    localStorage.removeItem('user');
+    window.location.reload();
   } catch (error) {
     dispatch({
       type: LOGOUT_FAIL,

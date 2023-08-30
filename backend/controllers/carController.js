@@ -11,6 +11,29 @@ const User = require('../models/user'); // Import the User model
 exports.getCars= catchAsyncErrors (async (req, res, next)=>{
 
     const resPerPage = 6; 
+    const carCount = await Car.countDocuments({ status: 'listing' });
+    
+
+    const apiFeatures= new APIFeatures(Car.find({ status: 'listing' }), req.query)
+                        .search()
+                        .filter()
+                        .pagination(resPerPage)
+   
+    const cars= await apiFeatures.query
+
+    res.status(200).json({
+        success:true,
+        count: cars.length,
+        carCount,
+        resPerPage,
+        cars
+    })
+}),
+
+//get all cars for admin  
+exports.getAdminCars= catchAsyncErrors (async (req, res, next)=>{
+
+    const resPerPage = 6; 
     const carCount = await Car.countDocuments();
     
 

@@ -14,6 +14,7 @@ const Stock = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const alert = useAlert();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const { loading, cars, error, carCount, resPerPage} = useSelector((state) => state.cars);
 
   const location = useLocation();

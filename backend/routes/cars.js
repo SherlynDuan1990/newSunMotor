@@ -3,6 +3,7 @@ const router=express.Router()
 
 const {
     getCars, 
+    getAdminCars,
     newCar, 
     getSingleCar,
     updateCar,
@@ -14,7 +15,7 @@ const {isAuthenticatedUser, authorizeRoles}= require ("../middlewares/auth")
 
 router.route("/cars").get(getCars);
 
-router.route("/admin/cars").get(isAuthenticatedUser, authorizeRoles("admin"), getCars);
+router.route("/admin/cars").get(isAuthenticatedUser, authorizeRoles("admin"), getAdminCars);
 
 
 router.route("/car/:id").get(getSingleCar);

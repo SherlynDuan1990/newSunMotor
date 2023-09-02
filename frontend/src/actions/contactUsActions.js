@@ -7,13 +7,16 @@ import {
     CLEAR_ERRORS
 } from '../constants/contactUsConstants';
 
+
+const URL=process.env.REACT_APP_SERVER_URL
+
 export const contactUs = (customerInfo) => async (dispatch) => {
     try {
         dispatch({ type: CONTACT_US_REQUEST });
         
 
 
-        const { data } = await axios.post('/api/v1/enquiries', customerInfo);
+        const { data } = await axios.post(`${URL}/api/v1/enquiries`, customerInfo);
         
 
         dispatch({

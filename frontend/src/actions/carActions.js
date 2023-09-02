@@ -13,12 +13,18 @@ import {
 
 } from "../constants/carConstants"
 
+
+
+const URL=process.env.REACT_APP_SERVER_URL
+
+console.log(URL)
+
 export const getCars = (keyword = "", currentPage = 1, yearRange, priceRange, kilometersRange) => async (dispatch) => {
     
     try {
         dispatch({ type: ALL_CARS_REQUEST });
 
-        let url = `/api/v1/cars/?page=${currentPage}`;
+        let url = `${URL}/api/v1/cars/?page=${currentPage}`;
 
         if (keyword) {
             url += `&keyword=${keyword}`;
@@ -60,7 +66,7 @@ export const getAdminCars = (keyword = "", currentPage = 1, yearRange, priceRang
     try {
         dispatch({ type: ALL_CARS_REQUEST });
 
-        let url = `/api/v1/admin/cars/?page=${currentPage}`;
+        let url = `${URL}/api/v1/admin/cars/?page=${currentPage}`;
 
         if (keyword) {
             url += `&keyword=${keyword}`;
@@ -102,7 +108,7 @@ export const getAdminCars = (keyword = "", currentPage = 1, yearRange, priceRang
 export const getCarDetails=(id)=> async (dispatch)=>{
     try{
         dispatch({type:CARS_DETAILS_REQUEST})
-        const {data} = await axios.get(`/api/v1/car/${id}`)
+        const {data} = await axios.get(`${URL}/api/v1/car/${id}`)
 
 
         dispatch({
@@ -127,7 +133,7 @@ export const bookTestdrive = (id, bookingData) => async (dispatch) => {
         dispatch({ type: BOOK_TEST_DRIVE_REQUEST });
         
 
-        const { data } = await axios.post(`/api/v1/car/${id}/testdrive`, bookingData);
+        const { data } = await axios.post(`${URL}/api/v1/car/${id}/testdrive`, bookingData);
 
         console.log(data)
 

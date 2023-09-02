@@ -10,6 +10,10 @@ import {
   LOGOUT_FAIL 
 } from '../constants/userConstants';
 
+
+
+const URL=process.env.REACT_APP_SERVER_URL
+
 // Login action
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -21,7 +25,7 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post('/api/v1/login', { email, password }, config);
+    const { data } = await axios.post(`${URL}/api/v1/login`, { email, password }, config);
   
     dispatch({
       type: LOGIN_SUCCESS,
@@ -42,7 +46,7 @@ export const logout = () => async (dispatch) => {
   try {
     dispatch({ type: LOGOUT_REQUEST });
 
-    const { data } = await axios.get('/api/v1/logout');
+    const { data } = await axios.get(`${URL}/api/v1/logout`);
 
     dispatch({ type: LOGOUT_SUCCESS });
     localStorage.removeItem('user');

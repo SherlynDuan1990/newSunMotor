@@ -10,9 +10,12 @@ const Car = ({ car }) => {
   const [showStatusOptions, setShowStatusOptions] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
 
+  
+  const URL=process.env.REACT_APP_SERVER_URL
+
   const handleStatusChange = async (status) => {
     try {
-      await axios.put(`/api/v1/car/${car._id}/status`, { status });
+      await axios.put(`${URL}/api/v1/car/${car._id}/status`, { status });
       alert.success('Car status updated successfully');
       setShowStatusOptions(false);
       setSelectedStatus('');

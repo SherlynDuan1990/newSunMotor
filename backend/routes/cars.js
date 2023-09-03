@@ -27,7 +27,7 @@ router.route("/admin/car/new").post(isAuthenticatedUser, authorizeRoles("admin")
 router.route("/admin/car/:id")
                             .put(isAuthenticatedUser, authorizeRoles("admin"), updateCar)
                             .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteCar)
-router.route("/car/:id/status").put(isAuthenticatedUser, authorizeRoles("admin"), updateCarStatus);
+router.route("/car/:id/status").put( updateCarStatus);
                             
 
 module.exports=router;

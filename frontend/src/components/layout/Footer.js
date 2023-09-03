@@ -50,7 +50,7 @@ const Footer = () => {
                 Sat: <span className="footer-emphasis">9:00-12:00</span> <br />
                 Sun: <span className="footer-emphasis">Closed</span>
               </p>
-              <p>
+              
 
               {!userFromLocalStorage ? (
                 <Link to="/login" className="footer-link" style={{ color: 'white', paddingLeft: '5px', fontSize: '22px' }}>
@@ -64,7 +64,7 @@ const Footer = () => {
                 </div>
               )}     
               
-              </p>
+             
             </div>
 
           </div>

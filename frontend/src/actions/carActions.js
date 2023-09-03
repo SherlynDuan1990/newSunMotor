@@ -42,7 +42,7 @@ export const getCars = (keyword = "", currentPage = 1, yearRange, priceRange, ki
             url += `&kilometers[gte]=${kilometersRange[0]}&kilometers[lte]=${kilometersRange[1]}`;
         }
 
-        const { data } = await axios.get(url);
+        const { data } = await axios.get(url, { withCredentials: true });
 
        
         dispatch({
@@ -84,7 +84,7 @@ export const getAdminCars = (keyword = "", currentPage = 1, yearRange, priceRang
             url += `&kilometers[gte]=${kilometersRange[0]}&kilometers[lte]=${kilometersRange[1]}`;
         }
 
-        const { data } = await axios.get(url);
+        const { data } = await axios.get(url, { withCredentials: true });
 
         console.log(data)
 
@@ -108,7 +108,7 @@ export const getAdminCars = (keyword = "", currentPage = 1, yearRange, priceRang
 export const getCarDetails=(id)=> async (dispatch)=>{
     try{
         dispatch({type:CARS_DETAILS_REQUEST})
-        const {data} = await axios.get(`${URL}/api/v1/car/${id}`)
+        const {data} = await axios.get(`${URL}/api/v1/car/${id}`, { withCredentials: true })
 
 
         dispatch({
@@ -133,7 +133,7 @@ export const bookTestdrive = (id, bookingData) => async (dispatch) => {
         dispatch({ type: BOOK_TEST_DRIVE_REQUEST });
         
 
-        const { data } = await axios.post(`${URL}/api/v1/car/${id}/testdrive`, bookingData);
+        const { data } = await axios.post(`${URL}/api/v1/car/${id}/testdrive`, bookingData, { withCredentials: true });
 
         console.log(data)
 

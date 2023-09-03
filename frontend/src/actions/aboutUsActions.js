@@ -8,16 +8,16 @@ import {
 
 
 
-require('dotenv').config()
-
 const URL=process.env.REACT_APP_SERVER_URL
+
+
 
 // Fetch About Us data
 export const fetchAboutUs = () => async (dispatch) => {
   try {
     dispatch({ type: FETCH_ABOUT_US_REQUEST });
 
-    const {data} = await axios.get(`${URL}/api/v1/aboutUs`); 
+    const {data} = await axios.get(`${URL}/api/v1/aboutUs`, { withCredentials: true }); 
   
 
 

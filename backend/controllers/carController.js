@@ -33,6 +33,7 @@ exports.getCars= catchAsyncErrors (async (req, res, next)=>{
 //get all cars for admin  
 exports.getAdminCars= catchAsyncErrors (async (req, res, next)=>{
 
+
     const resPerPage = 6; 
     const carCount = await Car.countDocuments();
     
@@ -49,7 +50,8 @@ exports.getAdminCars= catchAsyncErrors (async (req, res, next)=>{
         count: cars.length,
         carCount,
         resPerPage,
-        cars
+        cars,
+        
     })
 }),
 

@@ -16,7 +16,7 @@ export const contactUs = (customerInfo) => async (dispatch) => {
         
 
 
-        const { data } = await axios.post(`${URL}/api/v1/enquiries`, customerInfo);
+        const { data } = await axios.post(`${URL}/api/v1/enquiries`, customerInfo, { withCredentials: true });
         
 
         dispatch({

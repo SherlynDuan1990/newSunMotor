@@ -10,6 +10,16 @@ app.use(express.json())
 
 app.use(cookieParser())
 
+const cors = require('cors'); 
+
+const corsOrigin ={
+    origin:
+      "https://newsunmotor.onrender.com",
+    credentials:true,            
+    optionSuccessStatus:200
+}
+app.use(cors(corsOrigin));
+
 //import all routes
 const cars= require ("./routes/cars");
 const user= require ("./routes/user");

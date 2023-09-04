@@ -14,7 +14,7 @@ const cors = require('cors');
 
 const corsOrigin ={
     origin:
-      "https://newsunmotor.onrender.com",
+      "http://localhost:3000",
     credentials:true,            
     optionSuccessStatus:200
 }

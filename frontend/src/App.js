@@ -12,6 +12,9 @@ import ContactUs from "./components/ContactUs"
 import AboutUs from "./components/AboutUs"
 import Login from "./components/user/Login"
 import AdminStock from "./components/AdminStock"
+import AddNewCar from "./components/car/AddNewCar"
+
+
 
 function App() {
   return (
@@ -43,6 +46,8 @@ const WithHeaderFooterNav = () => (
         <Route path="/contact" element={<ContactUs />} exact />
         <Route path="/about" element={<AboutUs />} exact />
         <Route path="/admin/stock" element={<AdminStock />} exact />
+        <Route path="/admin/add-vehicle" element={<AddNewCar />} exact />
+        
       </Routes>
     </div>
     <Footer />

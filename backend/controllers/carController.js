@@ -4,11 +4,19 @@ const catchAsyncErrors = require("../middlewares/catchAsyncErrors")
 const APIFeatures=require("../utils/APIFeatures")
 const sendEmail= require("../utils/sendEmail")
 const User = require('../models/user'); // Import the User model
+const cloudinary=require ("cloudinary")
 
-
+// set up cloudinary config
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+  
+  })
 
 //get all cars  => /api/v1/cars
 exports.getCars= catchAsyncErrors (async (req, res, next)=>{
+    
 
     const resPerPage = 6; 
     const carCount = await Car.countDocuments({ status: 'listing' });

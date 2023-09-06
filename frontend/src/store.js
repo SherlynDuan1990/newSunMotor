@@ -3,13 +3,14 @@ import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension"
 
 
-import { carReducers, carDetailsReducers, testDriveReducer} from "./reducers/carReducers"
+import { newCarReducers, carReducers, carDetailsReducers, testDriveReducer} from "./reducers/carReducers"
 import {contactUsReducers} from "./reducers/contactUsReducers"
 import {aboutUsReducer} from "./reducers/aboutUsReducers"
 import {authReducer} from "./reducers/userReducers"
 
 const reducer=combineReducers({
     cars: carReducers,
+    newCar: newCarReducers,
     carDetails: carDetailsReducers,
     testDrive: testDriveReducer,
     contactUs: contactUsReducers,

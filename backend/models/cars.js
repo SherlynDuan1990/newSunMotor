@@ -54,7 +54,6 @@ const carsSchema = new mongoose.Schema ({
     },
     status :{
         type:String,
-        required: [true, "please enter status"],
         default:"N/A"
     },
     stockNo :{
@@ -69,7 +68,6 @@ const carsSchema = new mongoose.Schema ({
     },
     chassisNo :{
         type:String,
-        required: [true, "please enter chassis No"],
         default:0.0
     },
     numberPlate :{

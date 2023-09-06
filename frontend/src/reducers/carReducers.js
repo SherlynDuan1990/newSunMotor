@@ -8,9 +8,6 @@ import {
     BOOK_TEST_DRIVE_REQUEST,
     BOOK_TEST_DRIVE_SUCCESS,
     BOOK_TEST_DRIVE_FAIL,
-    ADD_NEW_CAR_REQUEST,
-    ADD_NEW_CAR_SUCCESS,
-    ADD_NEW_CAR_FAIL,
     CLEAR_ERRORS
 
 } from "../constants/carConstants"
@@ -35,28 +32,6 @@ export const carReducers =(state={cars:[]}, action)=>{
                     loading:false,
                     error:action.payload
                 }
-
-            case ADD_NEW_CAR_REQUEST:
-                return {
-                    ...state,
-                    loading: true,
-                };
-            
-            case ADD_NEW_CAR_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                success: true, 
-                newCar: action.payload, 
-            };
-            
-            case ADD_NEW_CAR_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-              
             case  CLEAR_ERRORS:
                 return {
                     ...state,
@@ -68,41 +43,6 @@ export const carReducers =(state={cars:[]}, action)=>{
 
     }
 }
-
-export const newCarReducers =(state={newCar:[]}, action)=>{
-    switch (action.type){
-        case ADD_NEW_CAR_REQUEST:
-                return {
-                    ...state,
-                    loading: true,
-                };
-            
-            case ADD_NEW_CAR_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                success: true, 
-                newCar: action.payload, 
-            };
-            
-            case ADD_NEW_CAR_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-              
-            case  CLEAR_ERRORS:
-                return {
-                    ...state,
-                    error:null
-                }
-
-        default:
-            return state;
-    }
-}
-
 
 
 export const carDetailsReducers =(state={car:[]}, action)=>{

@@ -24,14 +24,13 @@ cloudinary.config({
 
 const cors = require('cors'); 
 
-
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-};
-
-app.use(cors(corsOptions));
+const corsOrigin ={
+    origin:
+      "http://localhost:3000",
+    credentials:true,            
+    optionSuccessStatus:200
+}
+app.use(cors(corsOrigin));
 
 //import all routes
 const cars= require ("./routes/cars");

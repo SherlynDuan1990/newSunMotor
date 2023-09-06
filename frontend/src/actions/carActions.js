@@ -9,15 +9,9 @@ import {
     BOOK_TEST_DRIVE_REQUEST,
     BOOK_TEST_DRIVE_SUCCESS,
     BOOK_TEST_DRIVE_FAIL,
-    ADD_NEW_CAR_REQUEST,
-    ADD_NEW_CAR_SUCCESS,
-    ADD_NEW_CAR_FAIL,
     CLEAR_ERRORS
 
 } from "../constants/carConstants"
-
-
-
 
 export const getCars = (keyword = "", currentPage = 1, yearRange, priceRange, kilometersRange) => async (dispatch) => {
     
@@ -148,71 +142,6 @@ export const bookTestdrive = (id, bookingData) => async (dispatch) => {
         });
     }
 };
-
-
-// Function to upload an image to Cloudinary
-const uploadImageToCloudinary = async (imagePath) => {
-    try {
-      const formData = new FormData();
-      formData.append('file', imagePath);
-      formData.append('upload_preset', 'newSunMotor'); // Replace with your upload preset
-      const cloudName = 'dvypapjci'; // Replace with your Cloudinary cloud name
-      const apiKey = '423972196426351'; // Replace with your Cloudinary API key
-      const apiSecret = 'GE-yMM0j61SZvuis3_S9mPkPD2s'; // Replace with your Cloudinary API secret
-  
-      const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        auth: {
-          username: apiKey,
-          password: apiSecret,
-        },
-      });
-  
-      if (response.status === 200 && response.data.secure_url) {
-        return response.data.secure_url; // This is the URL of the uploaded image on Cloudinary
-      } else {
-        throw new Error('Failed to upload image to Cloudinary');
-      }
-    } catch (error) {
-      throw error;
-    }
-  };
-
-export const addNewCar = (carData,  selectedImage) => async (dispatch) => {
-  
-
-    try {
-      dispatch({ type: ADD_NEW_CAR_REQUEST });
-
-      // Upload the selected image to Cloudinary
-      const cloudinaryImageUrl = await uploadImageToCloudinary(selectedImage);
-
-      // Add the Cloudinary image URL to the carData object
-      carData.images = [{ public_id: cloudinaryImageUrl, url: cloudinaryImageUrl }];
-      
-
-      const response = await axios.post("/api/v1/admin/car/new", carData);
-  
-      if (response.data.success) {
-        dispatch({
-          type: ADD_NEW_CAR_SUCCESS,
-          payload: response.data.car, // You can pass the new car data here if needed
-        });
-      } else {
-        dispatch({
-          type: ADD_NEW_CAR_FAIL,
-          payload: "Failed to add a new car",
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: ADD_NEW_CAR_FAIL,
-        payload: error.response.data.errMessage || "An error occurred while adding the car",
-      });
-    }
-  };
 
 
 //CLEAR ERRORS

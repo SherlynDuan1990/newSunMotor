@@ -1,9 +1,3 @@
-import 'querystring-es3';
-import 'stream-http';
-import 'https-browserify';
-import 'crypto-browserify';
-import 'stream-browserify';
-import 'url';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';

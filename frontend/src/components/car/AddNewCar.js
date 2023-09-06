@@ -1,11 +1,9 @@
 
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useAlert } from 'react-alert';
-import { useDispatch } from 'react-redux';
-import { addNewCar , clearErrors } from '../../actions/carActions';
+import axios from 'axios';
 
 const AddNewCar = () => {
-  const dispatch = useDispatch();
   const alert = useAlert();
   const [carData, setCarData] = useState({
     title: '',
@@ -33,54 +31,41 @@ const AddNewCar = () => {
     features: [],
   });
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCarData({
+      ...carData,
+      [name]: value,
+    });
+  };
 
+  const handleFeatureChange = (e) => {
+    const { name, checked } = e.target;
+    const updatedFeatures = [...carData.features];
 
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setCarData({
-    ...carData,
-    [name]: value,
-  });
-};
-
-const handleFeatureChange = (e) => {
-  const { name, checked } = e.target;
-  const updatedFeatures = [...carData.features];
-
-  if (checked) {
-    updatedFeatures.push(name);
-  } else {
-    const featureIndex = updatedFeatures.indexOf(name);
-    if (featureIndex !== -1) {
-      updatedFeatures.splice(featureIndex, 1);
+    if (checked) {
+      updatedFeatures.push(name);
+    } else {
+      const featureIndex = updatedFeatures.indexOf(name);
+      if (featureIndex !== -1) {
+        updatedFeatures.splice(featureIndex, 1);
+      }
     }
-  }
 
     setCarData({
       ...carData,
       features: updatedFeatures,
     });
   };
-const [selectedImage, setSelectedImage] = useState(null);
-
-const handleImageChange = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      setSelectedImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-  }
-};
-  
 
   const handleAddCar = async () => {
     try {
       // Send a POST request to create a new car with carData
-      await dispatch(addNewCar(carData, selectedImage));
-      alert.success('Car added successfully');
-      // Clear the input fields after adding the car
+      const response = await axios.post('/api/v1/admin/car/new', carData);
+
+      if (response.data.success) {
+        alert.success('Car added successfully');
+        // Clear the input fields after adding the car
         setCarData({
           title: '',
           price: '',
@@ -106,16 +91,14 @@ const handleImageChange = (event) => {
           cylinders: '',
           features: [],
         });
-        // Clear the selected image
-        setSelectedImage(null);
+      } else {
+        alert.error('Failed to add car');
+      }
     } catch (error) {
       console.error('Error adding car:', error);
       alert.error('An error occurred while adding the car');
     }
   };
-
-  
-
 
   return (
     <div className="col-12 mt-5">
@@ -255,28 +238,17 @@ const handleImageChange = (event) => {
     
        
         <div className="form-group col-6 text-right">
-        <label htmlFor="year"> Year:</label>
-          <input
-              type="number"
-              name="year"
-              value={carData.year}
-              onChange={handleInputChange}
-              style={{
-                  margin: '5px',
-                  borderColor: '#4E7299', 
-                }}
-          />
-        <label htmlFor="vinNo"> vinNo:</label>
-          <input
-              type="text"
-              name="vinNo"
-              value={carData.vinNo}
-              onChange={handleInputChange}
-              style={{
-                  margin: '5px',
-                  borderColor: '#4E7299', 
-                }}
-          />
+        <label htmlFor=" vinNo"> vinNo:</label>
+        <input
+            type="text"
+            name=" vinNo"
+            value={carData. vinNo}
+            onChange={handleInputChange}
+            style={{
+                margin: '5px',
+                borderColor: '#4E7299', 
+              }}
+        />
         
       
         <label htmlFor="wofExpire">wof Expire:</label>
@@ -316,6 +288,7 @@ const handleImageChange = (event) => {
          <input
             type="text"
             name="color"
+            placeholder="color"
             value={carData.color}
             onChange={handleInputChange}
             style={{
@@ -385,25 +358,7 @@ const handleImageChange = (event) => {
       }}
     />
 
-    <hr />
 
-    <div >
-     
-          <h4 style={{ color:"#438A38", fontSize:"24px", marginRight: "5px"}}>Choose file to upload photos:</h4>
-          <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-          {selectedImage && (
-            <img
-              src={selectedImage}
-              alt="Selected"
-              style={{ maxWidth: '50%', maxHeight: '100px' }}
-            />
-          )}
-        </div>
       <hr />
 
       <div className="d-flex justify-content-center mt-3">
@@ -444,14 +399,11 @@ const handleImageChange = (event) => {
               cylinders: '',
               features: [],
             });
-            // Clear the selected image
-            setSelectedImage(null);
           }}
           style={{ backgroundColor: '#4E7299', color: 'white' }}
         >
           Reset
         </button>
-    
       </div>
 
     </div>

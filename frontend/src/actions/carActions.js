@@ -9,6 +9,9 @@ import {
     BOOK_TEST_DRIVE_REQUEST,
     BOOK_TEST_DRIVE_SUCCESS,
     BOOK_TEST_DRIVE_FAIL,
+    ADD_NEW_CAR_REQUEST,
+    ADD_NEW_CAR_SUCCESS,
+    ADD_NEW_CAR_FAIL,
     CLEAR_ERRORS
 
 } from "../constants/carConstants"
@@ -142,6 +145,37 @@ export const bookTestdrive = (id, bookingData) => async (dispatch) => {
         });
     }
 };
+
+
+
+
+export const addNewCar = (carData) => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_NEW_CAR_REQUEST });
+
+    
+    const response = await axios.post('http://127.0.0.1:4000/api/v1/admin/car/new', carData);
+
+    if (response.data.success) {
+      dispatch({
+        type: ADD_NEW_CAR_SUCCESS,
+        payload: response.data.newCar,
+      });
+    } else {
+      dispatch({
+        type: ADD_NEW_CAR_FAIL,
+        payload: 'Failed to add a new car',
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: ADD_NEW_CAR_FAIL,
+      payload:
+        error.response.data.errMessage || 'An error occurred while adding the car',
+    });
+  }
+};
+
 
 
 //CLEAR ERRORS

@@ -2,8 +2,11 @@
 import React, { useState } from 'react';
 import { useAlert } from 'react-alert';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addNewCar , clearErrors } from '../../actions/carActions';
 
 const AddNewCar = () => {
+  const dispatch = useDispatch();
   const alert = useAlert();
   const [carData, setCarData] = useState({
     title: '',
@@ -19,6 +22,7 @@ const AddNewCar = () => {
     chassisNo: '',
     numberPlate: '',
     make: '',
+    doors:'', 
     model: '',
     seats: '',
     color: '',
@@ -27,16 +31,29 @@ const AddNewCar = () => {
     wofExpire: '',
     regoExpire: '',
     numberOfOwners: '',
-    cylinders: '',
+    cylinders:'',
     features: [],
+    images: [],
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCarData({
-      ...carData,
-      [name]: value,
-    });
+    const { name, value, type, files } = e.target;
+  
+    if (type === 'file') {
+
+      // Handle file input separately
+      const selectedImages = Array.from(files);
+      setCarData({
+        ...carData,
+        images: [ ...selectedImages],
+      });
+
+    } else {
+      setCarData({
+        ...carData,
+        [name]: value,
+      });
+    }
   };
 
   const handleFeatureChange = (e) => {
@@ -58,42 +75,48 @@ const AddNewCar = () => {
     });
   };
 
+  
+  
+  
+  
+  
+
   const handleAddCar = async () => {
     try {
+      console.log(carData.images)
       // Send a POST request to create a new car with carData
-      const response = await axios.post('/api/v1/admin/car/new', carData);
-
-      if (response.data.success) {
-        alert.success('Car added successfully');
+      await dispatch(addNewCar(carData));
+      alert.success('Car added successfully');
+      // Clear the input fields after adding the car
         // Clear the input fields after adding the car
         setCarData({
           title: '',
-          price: '',
-          year: '',
-          kilometers: '',
-          transmission: '',
-          body: '',
-          description: '',
-          status: '',
-          stockNo: '',
-          vinNo: '',
-          chassisNo: '',
-          numberPlate: '',
-          make: '',
-          model: '',
-          seats: '',
-          color: '',
-          fuelType: '',
-          engineSize: '',
-          wofExpire: '',
-          regoExpire: '',
-          numberOfOwners: '',
-          cylinders: '',
-          features: [],
+              price: '',
+              year: '',
+              kilometers: '',
+              transmission: '',
+              body: '',
+              description: '',
+              status: '',
+              stockNo: '',
+              vinNo: '',
+              chassisNo: '',
+              numberPlate: '',
+              make: '',
+              doors:'', 
+              model: '',
+              seats: '',
+              color: '',
+              fuelType: '',
+              engineSize: '',
+              wofExpire: '',
+              regoExpire: '',
+              numberOfOwners: '',
+              cylinders:'',
+              features: [],
+              images: [],
         });
-      } else {
-        alert.error('Failed to add car');
-      }
+         
     } catch (error) {
       console.error('Error adding car:', error);
       alert.error('An error occurred while adding the car');
@@ -221,6 +244,18 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
+
+          <label htmlFor="model">Model:</label>
+         <input
+            type="text"
+            name="model"
+            value={carData.model}
+            onChange={handleInputChange}
+            style={{
+                margin: '5px',
+                borderColor: '#4E7299', 
+              }}
+        />
         <label htmlFor="body">Body:</label>
         <input
             type="text"
@@ -238,17 +273,28 @@ const AddNewCar = () => {
     
        
         <div className="form-group col-6 text-right">
-        <label htmlFor=" vinNo"> vinNo:</label>
-        <input
-            type="text"
-            name=" vinNo"
-            value={carData. vinNo}
-            onChange={handleInputChange}
-            style={{
-                margin: '5px',
-                borderColor: '#4E7299', 
-              }}
-        />
+        <label htmlFor="year"> Year:</label>
+          <input
+              type="number"
+              name="year"
+              value={carData.year}
+              onChange={handleInputChange}
+              style={{
+                  margin: '5px',
+                  borderColor: '#4E7299', 
+                }}
+          />
+        <label htmlFor="vinNo"> vinNo:</label>
+          <input
+              type="text"
+              name="vinNo"
+              value={carData.vinNo}
+              onChange={handleInputChange}
+              style={{
+                  margin: '5px',
+                  borderColor: '#4E7299', 
+                }}
+          />
         
       
         <label htmlFor="wofExpire">wof Expire:</label>
@@ -288,7 +334,6 @@ const AddNewCar = () => {
          <input
             type="text"
             name="color"
-            placeholder="color"
             value={carData.color}
             onChange={handleInputChange}
             style={{
@@ -318,6 +363,19 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
+        <label htmlFor="status">Status:</label>
+        <input
+            type="text"
+            name="status"
+            value={carData.status}
+            onChange={handleInputChange}
+            style={{
+                margin: '5px',
+                borderColor: '#4E7299', 
+              }}
+        />
+
+        
         </div>
       </div>
 
@@ -359,6 +417,46 @@ const AddNewCar = () => {
     />
 
 
+
+
+      <hr />
+
+      <div >
+     
+      <h4 style={{ color:"#438A38", fontSize:"24px", marginRight: "5px"}}>Choose file to upload photos:</h4>
+      <input
+        type="file"
+        id="imageInput"
+        accept="image/*"
+        multiple
+        onChange={handleInputChange}
+      />
+      {carData.images.length > 0 && (
+      <div>
+        <h4 style={{ color: "#438A38", fontSize: "24px", marginRight: "5px" }}>
+          Selected Images:
+        </h4>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {carData.images.map((image, index) => (
+            <img
+              key={index}
+              src={URL.createObjectURL(image)}
+              alt={`Selected ${index + 1}`}
+              style={{ maxWidth: "50%", maxHeight: "50px", margin: "5px" }}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+
+
+
+
+
+
+
+    </div>
+
       <hr />
 
       <div className="d-flex justify-content-center mt-3">
@@ -388,6 +486,7 @@ const AddNewCar = () => {
               chassisNo: '',
               numberPlate: '',
               make: '',
+              doors:'', 
               model: '',
               seats: '',
               color: '',
@@ -396,9 +495,11 @@ const AddNewCar = () => {
               wofExpire: '',
               regoExpire: '',
               numberOfOwners: '',
-              cylinders: '',
+              cylinders:'',
               features: [],
+              images: [],
             });
+             
           }}
           style={{ backgroundColor: '#4E7299', color: 'white' }}
         >

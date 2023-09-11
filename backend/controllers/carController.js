@@ -4,6 +4,7 @@ const catchAsyncErrors = require("../middlewares/catchAsyncErrors")
 const APIFeatures=require("../utils/APIFeatures")
 const sendEmail= require("../utils/sendEmail")
 const User = require('../models/user'); // Import the User model
+const cloudinary = require('cloudinary').v2;
 
 
 
@@ -159,16 +160,49 @@ exports.bookTestdrive = catchAsyncErrors(async (req, res) => {
     }
 });
 
+
 //create a new car => /api/v1/admin/car/new
 exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
+    console.log(req.body.images
+        )
+
+    cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET
+      
+      })
+    
+
+    let imagesLinks =[];
+
+    
+
+    for (let i=0; i< req.body.images.length; i++){
+        const result = await cloudinary.uploader.upload(req.body.images[i], {
+            folder:"newSunMotor"
+        });
+
+        imagesLinks.push({
+            public_id : result.public_id,
+            url: result.secure_url
+        })
+
+    }
+
+    
+
+    req.body.images =  imagesLinks
     
     
-    const car =  await Car.create(req.body);
+    const newCar =  await Car.create(req.body);
     res.status(201).json({
         success:true,
-        car
+        newCar
     })
 }),
+
+
 
 //update cars=> /api/v1/admin/car/:id
 exports.updateCar= catchAsyncErrors (async (req, res, next)=>{

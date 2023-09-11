@@ -1,6 +1,7 @@
 const app= require("./app")
 const connectDatabase= require("./config/database")
 
+
 //handle uncaught exceptions
 process.on("uncaughtException", err=>{
   console.log(`ERROR: ${err.stack}`);

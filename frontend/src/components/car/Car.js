@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 import axios from 'axios'; 
+import { useNavigate } from 'react-router-dom';
+import ConfirmationModal from '../ConfirmationModal';
 
 const Car = ({ car }) => {
   const alert = useAlert();
+  const navigate = useNavigate(); 
   const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
   const [showStatusOptions, setShowStatusOptions] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  
 
   const handleStatusChange = async (status) => {
     try {
@@ -22,6 +27,27 @@ const Car = ({ car }) => {
       alert.error('An error occurred while updating car status');
     }
   };
+
+  const handleDeleteCar = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(`/api/v1/admin/car/${car._id}`);
+      alert.success('Car deleted successfully');
+      setIsDeleteModalOpen(false);
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting car:', error);
+      alert.error('An error occurred while deleting the car');
+    }
+  };
+
+  const cancelDelete = () => {
+    setIsDeleteModalOpen(false);
+  };
+
 
 
 
@@ -73,13 +99,14 @@ const Car = ({ car }) => {
                   Update
                 </Link>
                 <Link
-                  to={`/car/${car._id}/delete`}
+                
                   className="btn mr-1"
                   style={{
                     backgroundColor: '#4E7299',
                     fontSize: '16px',
                     color: 'white',
                   }}
+                  onClick={handleDeleteCar}
                 >
                   Delete
                 </Link>
@@ -120,6 +147,13 @@ const Car = ({ car }) => {
           </div>
         </div>
       </div>
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        title="Confirm Delete"
+        message="Do you really want to delete this vehicle?"
+        onCancel={cancelDelete}
+        onConfirm={confirmDelete}
+      />
     </div>
   )
 }

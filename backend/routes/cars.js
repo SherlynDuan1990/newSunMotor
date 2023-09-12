@@ -28,7 +28,7 @@ router.route("/car/:id").get(getSingleCar);
 
 router.route("/car/:id/testdrive").post(bookTestdrive);
 
-router.route("/admin/car/new").post(isAuthenticatedUser, authorizeRoles("admin"), newCar);
+router.route("/admin/car/new").post( newCar);
 
 
 router.route("/admin/car/:id")

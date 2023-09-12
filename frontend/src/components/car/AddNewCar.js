@@ -4,10 +4,13 @@ import { useAlert } from 'react-alert';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addNewCar , clearErrors } from '../../actions/carActions';
+import { useNavigate } from 'react-router-dom';
 
 const AddNewCar = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
+  const navigate = useNavigate(); 
+  const [imagePreview, setImagePreview] =useState('')
   const [carData, setCarData] = useState({
     title: '',
     price: '',
@@ -40,14 +43,33 @@ const AddNewCar = () => {
     const { name, value, type, files } = e.target;
   
     if (type === 'file') {
-
       // Handle file input separately
       const selectedImages = Array.from(files);
-      setCarData({
-        ...carData,
-        images: [ ...selectedImages],
-      });
+  
+      // Create an array to store the data URLs
+      const imageDataURLs = [];
+  
+      // Use FileReader to read each selected image as a data URL
+      selectedImages.forEach((image) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          // Add the data URL to the array
+          imageDataURLs.push(event.target.result);
+  
+          // If all images have been read, update the carData state with the data URLs
+          if (imageDataURLs.length === selectedImages.length) {
+            setCarData({
+              ...carData,
+              images: [...imageDataURLs],
+            });
+            setImagePreview(reader.result)
+          }
+        };
+  
+        // Read the image as a data URL
+        reader.readAsDataURL(image);
 
+      });
     } else {
       setCarData({
         ...carData,
@@ -55,6 +77,7 @@ const AddNewCar = () => {
       });
     }
   };
+  
 
   const handleFeatureChange = (e) => {
     const { name, checked } = e.target;
@@ -83,7 +106,6 @@ const AddNewCar = () => {
 
   const handleAddCar = async () => {
     try {
-      console.log(carData.images)
       // Send a POST request to create a new car with carData
       await dispatch(addNewCar(carData));
       alert.success('Car added successfully');
@@ -116,6 +138,7 @@ const AddNewCar = () => {
               features: [],
               images: [],
         });
+        navigate('/admin/stock');
          
     } catch (error) {
       console.error('Error adding car:', error);
@@ -426,6 +449,7 @@ const AddNewCar = () => {
       <h4 style={{ color:"#438A38", fontSize:"24px", marginRight: "5px"}}>Choose file to upload photos:</h4>
       <input
         type="file"
+        name='images'
         id="imageInput"
         accept="image/*"
         multiple
@@ -440,7 +464,7 @@ const AddNewCar = () => {
           {carData.images.map((image, index) => (
             <img
               key={index}
-              src={URL.createObjectURL(image)}
+              src={imagePreview}
               alt={`Selected ${index + 1}`}
               style={{ maxWidth: "50%", maxHeight: "50px", margin: "5px" }}
             />

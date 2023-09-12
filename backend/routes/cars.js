@@ -12,15 +12,12 @@ const {
     updateCarStatus,
 } = require ("../controllers/carController")
 
-const 
-test = require ("../controllers/test")
 
 
 
 
 const {isAuthenticatedUser, authorizeRoles}= require ("../middlewares/auth")
 
-router.route("/test-cloudinary").get(test);
 
 router.route("/cars").get(getCars);
 
@@ -31,7 +28,7 @@ router.route("/car/:id").get(getSingleCar);
 
 router.route("/car/:id/testdrive").post(bookTestdrive);
 
-router.route("/admin/car/new").post( newCar);
+router.route("/admin/car/new").post(isAuthenticatedUser, authorizeRoles("admin"), newCar);
 
 
 router.route("/admin/car/:id")

@@ -163,8 +163,6 @@ exports.bookTestdrive = catchAsyncErrors(async (req, res) => {
 
 //create a new car => /api/v1/admin/car/new
 exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
-    console.log(req.body.images
-        )
 
     cloudinary.config({
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -190,10 +188,12 @@ exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
 
     }
 
+
     
 
     req.body.images =  imagesLinks
     
+
     
     const newCar =  await Car.create(req.body);
     res.status(201).json({

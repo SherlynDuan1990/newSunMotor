@@ -12,6 +12,10 @@ import {
     ADD_NEW_CAR_REQUEST,
     ADD_NEW_CAR_SUCCESS,
     ADD_NEW_CAR_FAIL,
+    UPDATE_CAR_REQUEST,
+    UPDATE_CAR_SUCCESS,
+    UPDATE_CAR_FAIL,
+    UPDATE_CAR_RESET,
     CLEAR_ERRORS
 
 } from "../constants/carConstants"
@@ -175,6 +179,35 @@ export const addNewCar = (carData) => async (dispatch) => {
     });
   }
 };
+
+export const updateCar =(carData) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_CAR_REQUEST });
+    
+        
+        const response = await axios.put('http://127.0.0.1:4000/api/v1/admin/car/:id', carData);
+
+        
+    
+        if (response.data.success) {
+          dispatch({
+            type: UPDATE_CAR_SUCCESS,
+            payload: response.data.updatedCar,
+          });
+        } else {
+          dispatch({
+            type: UPDATE_CAR_FAIL,
+            payload: 'Failed to update a car',
+          });
+        }
+      } catch (error) {
+        dispatch({
+          type: ADD_NEW_CAR_FAIL,
+          payload:
+            error.response.data.errMessage || 'An error occurred while updating the car',
+        });
+      }
+}
 
 
 

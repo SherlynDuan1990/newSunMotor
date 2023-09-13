@@ -1,43 +1,58 @@
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { addNewCar , clearErrors } from '../../actions/carActions';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getCarDetails, updateCar, clearErrors } from '../../actions/carActions';
 
-const AddNewCar = () => {
+const UpdateCar = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const navigate = useNavigate(); 
-  const [imagePreview, setImagePreview] =useState('')
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { loading, error, car } = useSelector(state => state.carDetails);
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
+    dispatch(getCarDetails(id));
+  }, [dispatch, alert, error, id]);
+
   const [carData, setCarData] = useState({
-    title: '',
-    price: '',
-    year: '',
-    kilometers: '',
-    transmission: '',
-    body: '',
-    description: '',
-    status: '',
-    stockNo: '',
-    vinNo: '',
-    chassisNo: '',
-    numberPlate: '',
-    make: '',
-    doors:'', 
-    model: '',
-    seats: '',
-    color: '',
-    fuelType: '',
-    engineSize: '',
-    wofExpire: '',
-    regoExpire: '',
-    numberOfOwners: '',
-    cylinders:'',
-    features: [],
-    images: [],
+    features: car.features || [],
+    title: car.title || '',
+    price: car.price || '',
+    year: car.year || '',
+    kilometers: car.kilometers || '',
+    transmission: car.transmission || '',
+    body: car.body || '',
+    description: car.description || '',
+    status: car.status || '',
+    stockNo: car.stockNo || '',
+    vinNo: car.vinNo || '',
+    chassisNo: car.chassisNo || '',
+    numberPlate: car.numberPlate || '',
+    make: car.make || '',
+    doors: car.doors || '',
+    model: car.model || '',
+    seats: car.seats || '',
+    color: car.color || '',
+    fuelType: car.fuelType || '',
+    engineSize: car.engineSize || '',
+    wofExpire: car.wofExpire || '',
+    regoExpire: car.regoExpire || '',
+    numberOfOwners: car.numberOfOwners || '',
+    cylinders: car.cylinders || '',
+    images: car.images || [],
+    name: car.name || '',
   });
+  
+
+  // Separate state for image preview
+  const [imagePreview, setImagePreview] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -107,7 +122,7 @@ const AddNewCar = () => {
   const handleAddCar = async () => {
     try {
       // Send a POST request to create a new car with carData
-      await dispatch(addNewCar(carData));
+      await dispatch(updateCar(carData));
       alert.success('Car added successfully');
       // Clear the input fields after adding the car
         // Clear the input fields after adding the car
@@ -464,7 +479,7 @@ const AddNewCar = () => {
           {carData.images.map((image, index) => (
             <img
               key={index}
-              src={imagePreview}
+              src={image.url}
               alt={`Selected ${index + 1}`}
               style={{ maxWidth: "50%", maxHeight: "50px", margin: "5px" }}
             />
@@ -535,7 +550,7 @@ const AddNewCar = () => {
   );
 };
 
-export default AddNewCar;
+export default UpdateCar;
 
 const featureOptions = [
   "ABS brakes",

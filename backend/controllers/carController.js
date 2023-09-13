@@ -206,6 +206,35 @@ exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
 
 //update cars=> /api/v1/admin/car/:id
 exports.updateCar= catchAsyncErrors (async (req, res, next)=>{
+    cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET
+      
+      })
+    
+
+    let imagesLinks =[];
+
+    
+
+    for (let i=0; i< req.body.images.length; i++){
+        const result = await cloudinary.uploader.upload(req.body.images[i], {
+            folder:"newSunMotor"
+        });
+
+        imagesLinks.push({
+            public_id : result.public_id,
+            url: result.secure_url
+        })
+
+    }
+
+
+    
+
+    req.body.images =  imagesLinks
+
     let car= await Car.findById(req.params.id);
     if (!car) {
         return res.status(404).json({
@@ -221,7 +250,7 @@ exports.updateCar= catchAsyncErrors (async (req, res, next)=>{
 
     res.status(200).json({
         success:true,
-        car
+        updatedCar
     })
 
 }),

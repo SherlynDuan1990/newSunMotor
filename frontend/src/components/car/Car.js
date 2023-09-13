@@ -17,7 +17,7 @@ const Car = ({ car }) => {
 
   const handleStatusChange = async (status) => {
     try {
-      await axios.put(`/api/v1/car/${car._id}/status`, { status });
+      await axios.put(`http://127.0.0.1:4000/api/v1/car/${car._id}/status`, { status });
       alert.success('Car status updated successfully');
       setShowStatusOptions(false);
       setSelectedStatus('');
@@ -34,7 +34,7 @@ const Car = ({ car }) => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`/api/v1/admin/car/${car._id}`);
+      await axios.delete(`http://127.0.0.1:4000/api/v1/admin/car/${car._id}`);
       alert.success('Car deleted successfully');
       setIsDeleteModalOpen(false);
       window.location.reload();

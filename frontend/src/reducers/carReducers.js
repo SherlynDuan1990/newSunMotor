@@ -11,6 +11,10 @@ import {
     ADD_NEW_CAR_REQUEST,
     ADD_NEW_CAR_SUCCESS,
     ADD_NEW_CAR_FAIL,
+    UPDATE_CAR_REQUEST,
+    UPDATE_CAR_SUCCESS,
+    UPDATE_CAR_FAIL,
+    UPDATE_CAR_RESET,
     CLEAR_ERRORS
 
 } from "../constants/carConstants"
@@ -81,6 +85,20 @@ export const newCarReducers =(state={newCar:[]}, action)=>{
     }
 }
 
+export const updateCarReducer = (state = {}, action) => {
+    switch (action.type) {
+      case UPDATE_CAR_REQUEST:
+        return { loading: true };
+      case UPDATE_CAR_SUCCESS:
+        return { loading: false, success: true,  updatedCar: action.payload};
+      case UPDATE_CAR_FAIL:
+        return { loading: false, error: action.payload };
+      case UPDATE_CAR_RESET:
+        return {};
+      default:
+        return state;
+    }
+  };
 
 
 

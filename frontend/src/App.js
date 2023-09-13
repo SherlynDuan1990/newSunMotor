@@ -48,7 +48,7 @@ const WithHeaderFooterNav = () => (
         <Route path="/about" element={<AboutUs />} exact />
         <Route path="/admin/stock" element={<AdminStock />} exact />
         <Route path="/admin/add-vehicle" element={<AddNewCar />} exact />
-        <Route path="/car/:id/update" element={<UpdateCar/>} exact />
+        <Route path="/car/:id/update" element={<UpdateCar/>}  />
         
       </Routes>
     </div>

@@ -126,6 +126,7 @@ const carsSchema = new mongoose.Schema ({
     wofExpire: { 
         type:Date,
         default: Date.now,
+        
     },
     regoExpire: { 
         type:Date,

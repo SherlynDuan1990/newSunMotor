@@ -206,6 +206,7 @@ exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
 
 //update cars=> /api/v1/admin/car/:id
 exports.updateCar= catchAsyncErrors (async (req, res, next)=>{
+    
     cloudinary.config({
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
         api_key: process.env.CLOUDINARY_API_KEY,
@@ -242,7 +243,10 @@ exports.updateCar= catchAsyncErrors (async (req, res, next)=>{
                 message: "car not found" })
     }
 
+    
+
     car= await Car.findByIdAndUpdate(req.params.id, req.body, {
+        
         new:true,
         runValidators:true,
         useFindAndModify:false

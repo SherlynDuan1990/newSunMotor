@@ -181,6 +181,7 @@ export const addNewCar = (carData) => async (dispatch) => {
 };
 
 export const updateCar =(carData) => async (dispatch) => {
+    console.log(carData)
     try {
         dispatch({ type: UPDATE_CAR_REQUEST });
     

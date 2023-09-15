@@ -21,6 +21,40 @@ const UpdateCar = () => {
     dispatch(getCarDetails(id));
   }, [dispatch, alert, error, id]);
 
+  function formatDateToString(dateString) {
+    const date = new Date(dateString);
+  
+    // Check if the date is valid
+    if (!isNaN(date)) {
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+      const year = date.getFullYear();
+  
+      return `${year}-${month}-${day}`;
+    } else {
+      console.error("Invalid date format");
+      return null; // You can return null or handle the error differently if needed
+    }
+  }
+  
+  // Example usage:
+  const formattedRegoExpire = formatDateToString(car.regoExpire);
+  const formattedWofExpire = formatDateToString(car.wofExpire);
+  
+  if (formattedRegoExpire !== null) {
+    car.regoExpire = formattedRegoExpire;
+  }
+  
+  if (formattedWofExpire !== null) {
+    car.wofExpire = formattedWofExpire;
+  }
+  
+
+  
+  
+
+  
+
   const [carData, setCarData] = useState({
     features: car.features || [],
     title: car.title || '',
@@ -47,7 +81,7 @@ const UpdateCar = () => {
     numberOfOwners: car.numberOfOwners || '',
     cylinders: car.cylinders || '',
     images: car.images || [],
-    name: car.name || '',
+    
   });
   
 
@@ -77,14 +111,26 @@ const UpdateCar = () => {
               ...carData,
               images: [...imageDataURLs],
             });
-            setImagePreview(reader.result)
+            setImagePreview(reader.result);
           }
         };
   
         // Read the image as a data URL
         reader.readAsDataURL(image);
-
       });
+    } else if (name === 'regoExpire' || name === 'wofExpire') {
+      // Handle date inputs separately and parse them into "yyyy-MM-dd" format
+      const dateValue = new Date(value);
+  
+      if (!isNaN(dateValue)) {
+        const formattedDate = formatDateToString(dateValue);
+        setCarData({
+          ...carData,
+          [name]: formattedDate,
+        });
+      } else {
+        console.error(`Invalid date format for ${name}`);
+      }
     } else {
       setCarData({
         ...carData,
@@ -119,13 +165,21 @@ const UpdateCar = () => {
   
   
 
-  const handleAddCar = async () => {
+  const handleUpdateCar = async () => {
     try {
-      // Send a POST request to create a new car with carData
-      await dispatch(updateCar(carData));
-      alert.success('Car added successfully');
-      // Clear the input fields after adding the car
-        // Clear the input fields after adding the car
+      // Convert regoExpire and wofExpire back to Date objects
+      const regoExpireDate = new Date(carData.regoExpire);
+      const wofExpireDate = new Date(carData.wofExpire);
+  
+      if (!isNaN(regoExpireDate) && !isNaN(wofExpireDate)) {
+        // Set the regoExpire and wofExpire properties in carData with Date objects
+        carData.regoExpire = regoExpireDate;
+        carData.wofExpire = wofExpireDate;
+        
+        // Send a POST request to update the car with carData
+        await dispatch(updateCar(carData));
+        alert.success('Car updated successfully');
+        
         setCarData({
           title: '',
               price: '',
@@ -155,11 +209,15 @@ const UpdateCar = () => {
         });
         navigate('/admin/stock');
          
-    } catch (error) {
-      console.error('Error adding car:', error);
-      alert.error('An error occurred while adding the car');
+    } else {
+      console.error('Invalid date format for regoExpire or wofExpire');
+      alert.error('Invalid date format. Please enter dates in "yyyy-MM-dd" format.');
     }
-  };
+  } catch (error) {
+    console.error('Error updating car:', error);
+    alert.error('An error occurred while updating the car');
+  }
+};
 
   return (
     <div className="col-12 mt-5">
@@ -501,10 +559,10 @@ const UpdateCar = () => {
       <div className="d-flex justify-content-center mt-3">
         <button
           className="btn status-btn mr-2"
-          onClick={handleAddCar}
+          onClick={handleUpdateCar}
           style={{ backgroundColor: '#438A38', color: 'white' }}
         >
-          Add Car
+          Update Car
         </button>
         <button
           className="btn status-btn"

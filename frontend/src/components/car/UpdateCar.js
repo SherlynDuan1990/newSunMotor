@@ -11,7 +11,8 @@ const UpdateCar = () => {
   const { id } = useParams();
 
   const { loading, error, car } = useSelector(state => state.carDetails);
-
+  
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -20,6 +21,41 @@ const UpdateCar = () => {
 
     dispatch(getCarDetails(id));
   }, [dispatch, alert, error, id]);
+
+  useEffect(() => {
+    // Populate carData when car details are available
+    if (car) {
+      setCarData({
+        features: car.features || [],
+        title: car.title || '',
+        price: car.price || '',
+        year: car.year || '',
+        kilometers: car.kilometers || '',
+        transmission: car.transmission || '',
+        body: car.body || '',
+        description: car.description || '',
+        status: car.status || '',
+        stockNo: car.stockNo || '',
+        vinNo: car.vinNo || '',
+        chassisNo: car.chassisNo || '',
+        numberPlate: car.numberPlate || '',
+        make: car.make || '',
+        doors: car.doors || '',
+        model: car.model || '',
+        seats: car.seats || '',
+        color: car.color || '',
+        fuelType: car.fuelType || '',
+        engineSize: car.engineSize || '',
+        wofExpire: car.wofExpire || '',
+        regoExpire: car.regoExpire || '',
+        numberOfOwners: car.numberOfOwners || '',
+        cylinders: car.cylinders || '',
+        images: car.images || [],
+      });
+      
+      setIsLoading(false); // Set loading to false when car data is available
+    }
+  }, [car]);
 
   function formatDateToString(dateString) {
     const date = new Date(dateString);
@@ -36,6 +72,7 @@ const UpdateCar = () => {
       return null; // You can return null or handle the error differently if needed
     }
   }
+ 
   
   // Example usage:
   const formattedRegoExpire = formatDateToString(car.regoExpire);

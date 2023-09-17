@@ -204,60 +204,75 @@ exports.newCar =catchAsyncErrors ( async (req, res, next)=>{
 
 
 
-//update cars=> /api/v1/admin/car/:id
-exports.updateCar= catchAsyncErrors (async (req, res, next)=>{
-    
-    cloudinary.config({
+// Update cars => /api/v1/admin/car/:id
+exports.updateCar = catchAsyncErrors(async (req, res, next) => {
+    console.log('Received update request with params:', req.params.id);
+    console.log('Received update request with body:', req.body);
+
+    // Check if the request contains an image file
+    if (req.is('multipart/form-data')) {
+      cloudinary.config({
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
         api_key: process.env.CLOUDINARY_API_KEY,
         api_secret: process.env.CLOUDINARY_API_SECRET
-      
-      })
-    
-
-    let imagesLinks =[];
-
-    
-
-    for (let i=0; i< req.body.images.length; i++){
-        const result = await cloudinary.uploader.upload(req.body.images[i], {
-            folder:"newSunMotor"
-        });
-
-        imagesLinks.push({
-            public_id : result.public_id,
+      });
+  
+      let imagesLinks = [];
+  
+      for (let i = 0; i < req.body.images.length; i++) {
+        try {
+          const result = await cloudinary.uploader.upload(req.body.images[i], {
+            folder: "newSunMotor"
+          });
+  
+          imagesLinks.push({
+            public_id: result.public_id,
             url: result.secure_url
-        })
-
+          });
+        } catch (error) {
+          console.error('Cloudinary upload error:', error);
+          // Handle the error appropriately, e.g., return an error response to the client
+          return res.status(500).json({
+            success: false,
+            message: "Error uploading images to Cloudinary"
+          });
+        }
+      }
+  
+      req.body.images = imagesLinks;
     }
-
-
-    
-
-    req.body.images =  imagesLinks
-
-    let car= await Car.findById(req.params.id);
-    if (!car) {
+  
+    try {
+      let car = await Car.findById(req.params.id);
+      if (!car) {
         return res.status(404).json({
-                success:false,
-                message: "car not found" })
+          success: false,
+          message: "Car not found"
+        });
+      }
+      
+      // Update the car document with the new data
+      car = await Car.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+      });
+  
+      res.status(200).json({
+        success: true,
+        car // Use the updated 'car' object as the response
+      });
+    } catch (error) {
+      console.error('Car update error:', error);
+      // Handle the error appropriately, e.g., return an error response to the client
+      res.status(500).json({
+        success: false,
+        message: "Error updating car"
+      });
     }
-
-    
-
-    car= await Car.findByIdAndUpdate(req.params.id, req.body, {
-        
-        new:true,
-        runValidators:true,
-        useFindAndModify:false
-    });
-
-    res.status(200).json({
-        success:true,
-        updatedCar
-    })
-
-}),
+  });
+  
+  
 
 //delete cars=> /api/v1/admin/car/:id
 exports.deleteCar= catchAsyncErrors (async (req, res, next)=>{

@@ -32,7 +32,7 @@ router.route("/admin/car/new").post( newCar); //isAuthenticatedUser, authorizeRo
 
 
 router.route("/admin/car/:id")
-                            .put( updateCar) //isAuthenticatedUser, authorizeRoles("admin"),
+                            .put(updateCar) //isAuthenticatedUser, authorizeRoles("admin"),
                             .delete( deleteCar) //isAuthenticatedUser, authorizeRoles("admin"),
 router.route("/car/:id/status").put( updateCarStatus);  //isAuthenticatedUser, authorizeRoles("admin"),
                             

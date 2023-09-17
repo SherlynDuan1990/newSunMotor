@@ -180,13 +180,12 @@ export const addNewCar = (carData) => async (dispatch) => {
   }
 };
 
-export const updateCar =(carData) => async (dispatch) => {
-    console.log(carData)
+export const updateCar =(carData, id) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_CAR_REQUEST });
     
         
-        const response = await axios.put('http://127.0.0.1:4000/api/v1/admin/car/:id', carData);
+        const response = await axios.put(`http://127.0.0.1:4000/api/v1/admin/car/${id}`, carData);
 
         
     

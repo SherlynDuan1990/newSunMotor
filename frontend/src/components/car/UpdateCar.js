@@ -22,6 +22,7 @@ const UpdateCar = () => {
     dispatch(getCarDetails(id));
   }, [dispatch, alert, error, id]);
 
+
   useEffect(() => {
     // Populate carData when car details are available
     if (car) {
@@ -207,14 +208,14 @@ const UpdateCar = () => {
       // Convert regoExpire and wofExpire back to Date objects
       const regoExpireDate = new Date(carData.regoExpire);
       const wofExpireDate = new Date(carData.wofExpire);
-  
+
       if (!isNaN(regoExpireDate) && !isNaN(wofExpireDate)) {
-        // Set the regoExpire and wofExpire properties in carData with Date objects
-        carData.regoExpire = regoExpireDate;
-        carData.wofExpire = wofExpireDate;
+        // Format the Date objects as strings
+        carData.regoExpire = regoExpireDate.toISOString();
+        carData.wofExpire = wofExpireDate.toISOString();
         
         // Send a POST request to update the car with carData
-        await dispatch(updateCar(carData));
+        await dispatch(updateCar(carData, id));
         alert.success('Car updated successfully');
         
         setCarData({

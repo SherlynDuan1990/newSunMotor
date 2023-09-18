@@ -10,6 +10,7 @@ const {
     deleteCar,
     bookTestdrive,
     updateCarStatus,
+    getListingVehicles
 } = require ("../controllers/carController")
 
 
@@ -35,6 +36,7 @@ router.route("/admin/car/:id")
                             .put(updateCar) //isAuthenticatedUser, authorizeRoles("admin"),
                             .delete( deleteCar) //isAuthenticatedUser, authorizeRoles("admin"),
 router.route("/car/:id/status").put( updateCarStatus);  //isAuthenticatedUser, authorizeRoles("admin"),
-                      
+
+router.route("/car/dashboard/listingVehicles").get(getListingVehicles);                      
 
 module.exports=router;

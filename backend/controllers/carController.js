@@ -315,4 +315,35 @@ exports.updateCarStatus = catchAsyncErrors(async (req, res, next) => {
 });
 
 
+exports.getListingVehicles = catchAsyncErrors(async (req, res, next) => {
+  try {
+    // Count the number of cars in each status (case-insensitive)
+    const listingCount = await Car.countDocuments({
+      status: { $regex: 'listing', $options: 'i' }, // 'i' for case-insensitive
+    });
+    const onHoldCount = await Car.countDocuments({
+      status: { $regex: 'on hold', $options: 'i' }, // 'i' for case-insensitive
+    });
+    const inTransitCount = await Car.countDocuments({
+      status: { $regex: 'in transit', $options: 'i' }, // 'i' for case-insensitive
+    });
+
+    // Get the total number of cars
+    const totalCars = await Car.countDocuments();
+
+    res.status(200).json({
+      success: true,
+      data: {
+        listingCount,
+        onHoldCount,
+        inTransitCount,
+        totalCars,
+      },
+    });
+  } catch (error) {
+    // Use the custom error handler to handle errors
+    return next(new ErrorHandler('Unable to fetch car counts', 500));
+  }
+});
+
 

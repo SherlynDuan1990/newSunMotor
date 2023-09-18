@@ -14,6 +14,7 @@ import Login from "./components/user/Login"
 import AdminStock from "./components/AdminStock"
 import AddNewCar from "./components/car/AddNewCar"
 import UpdateCar from "./components/car/UpdateCar"
+import Dashboard from "./components/Dashboard"
 
 
 
@@ -49,6 +50,7 @@ const WithHeaderFooterNav = () => (
         <Route path="/admin/stock" element={<AdminStock />} exact />
         <Route path="/admin/add-vehicle" element={<AddNewCar />} exact />
         <Route path="/car/:id/update" element={<UpdateCar/>}  />
+        <Route path="/admin/dashboard" element={<Dashboard />} exact />
         
       </Routes>
     </div>

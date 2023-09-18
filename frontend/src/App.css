@@ -958,6 +958,58 @@ ul.CTAs a {
 }
 
 
+.dashboard {
+  background: url('../public/images/background.png') no-repeat center center;
+  padding: 10%;
+  background-size: 100% 80%; 
+  gap: 20px; 
+  
 
+}
+
+
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.vehicle-listing-section,
+.sold-vehicles-section {
+  flex: 1;
+  padding: 20px;
+  margin: 10px;
+  background-color: rgba(173, 187, 203, 0.58);;
+  width:60%
+  
+}
+
+.vehicle-listing-section h2,
+.sold-vehicles-section h2 {
+  font-size: 32px;
+  color: #4e7299;
+}
+
+.vehicle-listing-section ul li,
+.sold-vehicles-section ul li {
+  font-size: 20px;
+  list-style-type: none; /* Remove the bullets */
+  margin-left: -30px; 
+ 
+}
+
+.vehicle-listing-section ul li span,
+.sold-vehicles-section ul li span,
+.number {
+  font-size: 32px;
+  color: #438a38;
+}
+
+.sub-header{
+  font-size: 20px;
+  
+  
+ 
+}
 
 

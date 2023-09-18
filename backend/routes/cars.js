@@ -35,6 +35,6 @@ router.route("/admin/car/:id")
                             .put(updateCar) //isAuthenticatedUser, authorizeRoles("admin"),
                             .delete( deleteCar) //isAuthenticatedUser, authorizeRoles("admin"),
 router.route("/car/:id/status").put( updateCarStatus);  //isAuthenticatedUser, authorizeRoles("admin"),
-                            
+                      
 
 module.exports=router;

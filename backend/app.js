@@ -36,11 +36,13 @@ app.use(cors(corsOrigin));
 const cars= require ("./routes/cars");
 const user= require ("./routes/user");
 const enquiries= require ("./routes/enquiry");
+const customers= require ("./routes/customers");
 
 
 app.use("/api/v1", cars)
 app.use("/api/v1", user)
 app.use("/api/v1", enquiries)
+app.use("/api/v1", customers)
 
 
 //middleware to handle errors

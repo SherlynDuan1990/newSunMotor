@@ -1013,3 +1013,65 @@ ul.CTAs a {
 }
 
 
+/* Add this CSS to your stylesheet */
+
+.recent-customers-section {
+  border: 2px solid #4e7299;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.section-heading {
+  font-size: 26px;
+  color: #4e7299;
+}
+
+.customer-container {
+
+  padding: 10px;
+}
+
+.customer-info-label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.label {
+  width: 30%; /* Adjust the width as needed */
+  text-align: left;
+}
+
+.customer-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.customer-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.customer-info {
+  width: 30%; /* Adjust the width as needed */
+  text-align: left;
+}
+
+.show-all-button {
+  background-color: #4e7299;
+  color: white;
+  border-style: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: center;
+}
+
+.show-all-button:hover {
+  background-color: #375e8c; /* Darker shade for hover effect */
+}

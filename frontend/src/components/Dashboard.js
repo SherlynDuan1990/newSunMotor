@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 
 
 const Dashboard = () => {
+  const [showAllCustomers, setShowAllCustomers] = useState(false);
+
+  // Function to toggle showing all customers
+  const toggleShowAllCustomers = () => {
+    setShowAllCustomers(!showAllCustomers);
+  };
   return (
+    <div>
     <div className="dashboard">
       <div className="vehicle-listing-section">
         <h2 className="section-heading">Vehicle Listings</h2>
@@ -41,6 +49,54 @@ const Dashboard = () => {
           </p>
         </div>
       </div>
+    </div>
+    <div className="recent-customers-section">
+        <h2 className="section-heading">Recent Customers</h2>
+        <div className="customer-container">
+            <div className="customer-info-label">
+            <p className="label">Full Name</p>
+            <p className="label">Email Address</p>
+            <p className="label">Phone Number</p>
+            </div>
+            <ul className="customer-list">
+            {!showAllCustomers ? (
+                <>
+                <li className="customer-item">
+                    <span className="customer-info">John Doe</span>
+                    <span className="customer-info">john@example.com</span>
+                    <span className="customer-info">123-456-7890</span>
+                </li>
+                <li className="customer-item">
+                    <span className="customer-info">Jane Smith</span>
+                    <span className="customer-info">jane@example.com</span>
+                    <span className="customer-info">987-654-3210</span>
+                </li>
+                {/* Add more customer list items here */}
+                </>
+            ) : (
+                // Display all customers when showAllCustomers is true
+                <>
+                <li className="customer-item">
+                    <span className="customer-info">John Doe</span>
+                    <span className="customer-info">john@example.com</span>
+                    <span className="customer-info">123-456-7890</span>
+                </li>
+                <li className="customer-item">
+                    <span className="customer-info">Jane Smith</span>
+                    <span className="customer-info">jane@example.com</span>
+                    <span className="customer-info">987-654-3210</span>
+                </li>
+                {/* Add more customer list items here */}
+                {/* You can include all your customer data here */}
+                </>
+            )}
+            </ul>
+        </div>
+        <button className="show-all-button" onClick={toggleShowAllCustomers}>
+            {showAllCustomers ? 'Show Less' : 'Show All'}
+        </button>
+        </div>
+
     </div>
   );
 };

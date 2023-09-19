@@ -34,11 +34,11 @@ const Header = () => {
 
             {userFromLocalStorage && (
               <div className="ml-4 dropdown d-inline">
-                <button className="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i className="material-icons" style={{ color: "#4E7299" }}>account_circle</i>
-                </button>
-
-              </div>
+              <a href="/admin/account" className="btn dropdown-toggle text-white" role="button">
+                <i className="material-icons" style={{ color: "#4E7299" }}>account_circle</i>
+              </a>
+            </div>
+            
             )}
           </nav>  
 

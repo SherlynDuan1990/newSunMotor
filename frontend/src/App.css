@@ -1075,3 +1075,111 @@ ul.CTAs a {
 .show-all-button:hover {
   background-color: #375e8c; /* Darker shade for hover effect */
 }
+
+.sell-agreement {
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.company,
+.car
+.customer-details{
+  display: block;
+}
+.company-info {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border: 1px solid #4e7299;
+}
+
+
+.company-info h2 {
+  margin-bottom: 10px;
+}
+
+.left,
+.right,
+.top {
+  flex: 1;
+}
+
+
+
+.car-details{
+  border: 1px solid #4e7299;
+  margin-top: 20px;
+  padding: 20px;
+
+}
+.customer-details {
+  border: 1px solid #4e7299;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.car-details h2,
+.customer-details h2 {
+  margin-bottom: 10px;
+}
+
+.car-inputs label,
+.customer-inputs label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.car-inputs input,
+.customer-inputs input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.confirm-print {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4e7299;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #324d79;
+}
+
+.sold-title{
+  color: #4e7299;
+  font-size: 32px
+
+}
+
+.sub-title {
+  color: #4e7299;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px; /* Add some margin to separate each input group */
+}
+
+.input-group label {
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #438a38;
+  border-radius: 4px;
+}

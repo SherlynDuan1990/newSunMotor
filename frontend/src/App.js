@@ -16,6 +16,7 @@ import AddNewCar from "./components/car/AddNewCar"
 import UpdateCar from "./components/car/UpdateCar"
 import Dashboard from "./components/Dashboard"
 import SellAgreement from "./components/SellAgreement"
+import Account from "./components/user/Account"
 
 
 
@@ -54,6 +55,7 @@ const WithHeaderFooterNav = () => (
         <Route path="/car/:id/update" element={<UpdateCar/>}  />
         <Route path="/admin/dashboard" element={<Dashboard />} exact />
         <Route path="/admin/sell-vehicle" element={<SellAgreement />} exact />
+        <Route path="/admin/account" element={<Account />} exact />
         
         
       </Routes>

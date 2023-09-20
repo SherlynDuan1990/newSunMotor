@@ -392,7 +392,7 @@ exports.getSoldVehicles = catchAsyncErrors(async (req, res, next) => {
     },
   });
 
-  console.log(soldVehicles)
+ 
   
   // Calculate the total number of sold vehicles and the total amount
   const soldVehicleCount = soldVehicles.length;

@@ -3,7 +3,8 @@ const ErrorHandler=require("../utils/errorHandler")
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors")
 const APIFeatures=require("../utils/APIFeatures")
 const sendEmail= require("../utils/sendEmail")
-const User = require('../models/user'); // Import the User model
+const User = require('../models/user'); 
+const Customer = require('../models/customers'); 
 const cloudinary = require('cloudinary').v2;
 
 
@@ -349,6 +350,63 @@ exports.getListingVehicles = catchAsyncErrors(async (req, res, next) => {
     // Use the custom error handler to handle errors
     return next(new ErrorHandler('Unable to fetch car counts', 500));
   }
+});
+
+// Get sold vehicles based on the selected time range
+exports.getSoldVehicles = catchAsyncErrors(async (req, res, next) => {
+  const { timeRange } = req.body;
+  let startDate, endDate;
+
+  // Calculate the start and end dates based on the selected time range
+  const currentDate = new Date();
+  
+
+  switch (timeRange) {
+    case 'lastMonth':
+  
+      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      break;
+    case 'lastThreeMonths':
+      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1);
+      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      break;
+    case 'lastSixMonths':
+      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, 1);
+      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      break;
+    case 'lastYear':
+      startDate = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), 1);
+      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      break;
+    default:
+      startDate = new Date(0); // Default to start from the beginning
+      endDate = currentDate;
+  }
+
+  const soldVehicles = await Customer.find({
+    
+    'contract.createdAt': {
+      $gte: startDate,
+      $lte: endDate,
+    },
+  });
+
+  console.log(soldVehicles)
+  
+  // Calculate the total number of sold vehicles and the total amount
+  const soldVehicleCount = soldVehicles.length;
+  const totalAmount = soldVehicles.reduce((sum, customer) => {
+    return sum + customer.contract.carDetails.price;
+  }, 0);
+
+  res.status(200).json({
+    success: true,
+    data: {
+      soldVehicleCount,
+      totalAmount,
+    },
+  });
 });
 
 

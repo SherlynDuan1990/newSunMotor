@@ -8,6 +8,10 @@ const contractSchema = new mongoose.Schema({
     plateNumber: String,
     price: Number,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now, // Set the default value to the current timestamp
+  },
 });
 
 // Schema for customers

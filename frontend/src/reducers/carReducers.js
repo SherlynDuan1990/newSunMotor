@@ -15,6 +15,9 @@ import {
     UPDATE_CAR_SUCCESS,
     UPDATE_CAR_FAIL,
     UPDATE_CAR_RESET,
+    GET_LISTING_VEHICLES_REQUEST,
+    GET_LISTING_VEHICLES_SUCCESS,
+    GET_LISTING_VEHICLES_FAILURE,
     CLEAR_ERRORS
 
 } from "../constants/carConstants"
@@ -162,3 +165,30 @@ export const testDriveReducer = (state = initialState, action) => {
             return state;
     }
 };
+
+export const listingVehiclesReducer = (state = { loading: false, listingVehicles: [], error: null }, action) => {
+    switch (action.type) {
+      case GET_LISTING_VEHICLES_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+      case GET_LISTING_VEHICLES_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          listingVehicles: action.payload.data,
+          error: null,
+        };
+      case GET_LISTING_VEHICLES_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          listingVehicles: [], // Maintain it as an empty array on failure
+          error: action.payload,
+        };
+      default:
+        return state;
+    }
+  };
+  

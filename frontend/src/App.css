@@ -945,6 +945,7 @@ ul.CTAs a {
 }
 
 .status-option {
+  margin-right: 20px;
   color: white;
   padding: 8px 15px;
   border: none;

@@ -327,9 +327,12 @@ exports.getListingVehicles = catchAsyncErrors(async (req, res, next) => {
     const inTransitCount = await Car.countDocuments({
       status: { $regex: 'in transit', $options: 'i' }, // 'i' for case-insensitive
     });
+    const soldCount = await Car.countDocuments({
+      status: { $regex: 'sold', $options: 'i' }, // 'i' for case-insensitive
+    });
 
-    // Get the total number of cars
-    const totalCars = await Car.countDocuments();
+    // Calculate the total number of cars
+    const totalCars = listingCount + inTransitCount + onHoldCount;
 
     res.status(200).json({
       success: true,
@@ -337,7 +340,9 @@ exports.getListingVehicles = catchAsyncErrors(async (req, res, next) => {
         listingCount,
         onHoldCount,
         inTransitCount,
+        soldCount,
         totalCars,
+        
       },
     });
   } catch (error) {

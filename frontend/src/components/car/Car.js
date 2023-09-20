@@ -132,6 +132,12 @@ const Car = ({ car }) => {
                   </button>
                   <button
                     className="btn status-option"
+                    onClick={() => handleStatusChange('in transit')}
+                  >
+                    In Transit
+                  </button>
+                  <button
+                    className="btn status-option"
                     onClick={() => handleStatusChange('sold')}
                   >
                     Sold

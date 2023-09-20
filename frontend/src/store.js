@@ -3,7 +3,11 @@ import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension"
 
 
-import { newCarReducers, carReducers, carDetailsReducers, testDriveReducer} from "./reducers/carReducers"
+import { newCarReducers, 
+    carReducers, 
+    carDetailsReducers, 
+    testDriveReducer, 
+    listingVehiclesReducer} from "./reducers/carReducers"
 import {contactUsReducers} from "./reducers/contactUsReducers"
 import {aboutUsReducer} from "./reducers/aboutUsReducers"
 import {authReducer} from "./reducers/userReducers"
@@ -15,7 +19,8 @@ const reducer=combineReducers({
     testDrive: testDriveReducer,
     contactUs: contactUsReducers,
     philosophy: aboutUsReducer,
-    auth: authReducer
+    auth: authReducer,
+    listingVehicles:listingVehiclesReducer
 
 })
 let initialState ={}

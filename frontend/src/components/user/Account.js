@@ -38,7 +38,7 @@ const Account = () => {
                 <div className="car-details">
                 <div className="left">
                     <div className="input-group">
-                    <label>VName:</label>
+                    <label>Name:</label>
                     <input type="text" name="staffName" />
                     </div>
                     <div className="input-group">

@@ -16,6 +16,9 @@ import {
     UPDATE_CAR_SUCCESS,
     UPDATE_CAR_FAIL,
     UPDATE_CAR_RESET,
+    GET_LISTING_VEHICLES_REQUEST,
+    GET_LISTING_VEHICLES_SUCCESS,
+    GET_LISTING_VEHICLES_FAILURE,
     CLEAR_ERRORS
 
 } from "../constants/carConstants"
@@ -209,7 +212,27 @@ export const updateCar =(carData, id) => async (dispatch) => {
       }
 }
 
-
+export const getListingVehicles = () => async (dispatch) => {
+    try {
+      dispatch({ type: GET_LISTING_VEHICLES_REQUEST });
+  
+      // Make an API request to fetch listing vehicles
+      // Replace 'fetchListingVehicles' with your actual API call
+      const response = await fetch('http://127.0.0.1:4000/api/v1/car/dashboard/listingVehicles');
+      const data = await response.json();
+  
+  
+      dispatch({
+        type: GET_LISTING_VEHICLES_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_LISTING_VEHICLES_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
 
 //CLEAR ERRORS
 export const clearErrors=() => async (dispatch) => {

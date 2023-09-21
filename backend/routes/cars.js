@@ -11,7 +11,7 @@ const {
     bookTestdrive,
     updateCarStatus,
     getListingVehicles,
-    getSoldVehicles
+    getSoldVehicles,
 } = require ("../controllers/carController")
 
 
@@ -41,5 +41,7 @@ router.route("/car/:id/status").put( updateCarStatus);  //isAuthenticatedUser, a
 router.route("/car/dashboard/listingVehicles").get(getListingVehicles); 
 
 router.route("/car/dashboard/soldVehicles").post(getSoldVehicles); 
+
+
 
 module.exports=router;

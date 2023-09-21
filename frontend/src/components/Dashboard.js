@@ -16,8 +16,30 @@ const Dashboard = () => {
   const { loading, error, listingVehicles } = useSelector((state) => state.listingVehicles);
 
   const [showAllCustomers, setShowAllCustomers] = useState(false);
-  const [soldVehicleCount, setSoldVehicleCount] = useState(0); // Initialize to 0
-  const [totalAmount, setTotalAmount] = useState(0); // Initialize to 0
+  const [soldVehicleCount, setSoldVehicleCount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [customers, setCustomers] = useState([]);
+  const [loadingCustomers, setLoadingCustomers] = useState(true); // Add loading state for customers
+
+  // Define the getCustomers function here
+  const getCustomers = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:4000/api/v1/admin/customers');
+      const customersData = response.data;
+      // Check if customersData is an object with a 'customers' property
+      if (customersData && Array.isArray(customersData.customers)) {
+        const customersArray = customersData.customers;
+        setCustomers(customersArray);
+        console.log(customersArray)
+        setLoadingCustomers(false);
+      } else {
+        // Handle the case where customersData is not in the expected format
+        console.error('Invalid data format for customers:', customersData);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   useEffect(() => {
     if (error) {
@@ -27,28 +49,23 @@ const Dashboard = () => {
 
     dispatch(getListingVehicles());
     handleTimeRangeSelect('lastMonth');
+    getCustomers(); // Fetch customer data
   }, [dispatch, alert, error]);
 
-  // Function to handle time range selection
   const handleTimeRangeSelect = async (selectedTimeRange) => {
     try {
       const response = await axios.post('http://127.0.0.1:4000/api/v1/car/dashboard/soldVehicles', {
         timeRange: selectedTimeRange,
       });
 
-      // Assuming the response data contains the soldVehicleCount and totalAmount
       const { soldVehicleCount: newSoldVehicleCount, totalAmount: newTotalAmount } = response.data.data;
-
-      // Update the state with the new values
       setSoldVehicleCount(newSoldVehicleCount);
       setTotalAmount(newTotalAmount);
     } catch (error) {
-      // Handle any errors that occur during the POST request
       console.error('Error:', error);
     }
   };
 
-  // Function to toggle showing all customers
   const toggleShowAllCustomers = () => {
     setShowAllCustomers(!showAllCustomers);
   };
@@ -101,52 +118,40 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="recent-customers-section">
-            <h2 className="section-heading">Recent Customers</h2>
-            <div className="customer-container">
-              <div className="customer-info-label">
-                <p className="label">Full Name</p>
-                <p className="label">Email Address</p>
-                <p className="label">Phone Number</p>
-              </div>
-              <ul className="customer-list">
-                {!showAllCustomers ? (
-                  <>
-                    <li className="customer-item">
-                      <span className="customer-info">John Doe</span>
-                      <span className="customer-info">john@example.com</span>
-                      <span className="customer-info">123-456-7890</span>
-                    </li>
-                    <li className="customer-item">
-                      <span className="customer-info">Jane Smith</span>
-                      <span className="customer-info">jane@example.com</span>
-                      <span className="customer-info">987-654-3210</span>
-                    </li>
-                    {/* Add more customer list items here */}
-                  </>
+              <h2 className="section-heading">Recent Customers</h2>
+              <div className="customer-container">
+                <div className="customer-info-label">
+                  <p className="label">Full Name</p>
+                  <p className="label">Email Address</p>
+                  <p className="label">Phone Number</p>
+                </div>
+                {loadingCustomers ? ( // Display loading message while customers data is loading
+                  <p>Loading customers...</p>
                 ) : (
-                  // Display all customers when showAllCustomers is true
-                  <>
-                    <li className="customer-item">
-                      <span className="customer-info">John Doe</span>
-                      <span className="customer-info">john@example.com</span>
-                      <span className="customer-info">123-456-7890</span>
-                    </li>
-                    <li className="customer-item">
-                      <span className="customer-info">Jane Smith</span>
-                      <span className="customer-info">jane@example.com</span>
-                      <span className="customer-info">987-654-3210</span>
-                    </li>
-                    {/* Add more customer list items here */}
-                    {/* You can include all your customer data here */}
-                  </>
+                  <ul className="customer-list">
+                    {showAllCustomers
+                      ? customers.map((customer) => (
+                          <li key={customer._id} className="customer-item">
+                            <span className="customer-info">{customer.fullName}</span>
+                            <span className="customer-info">{customer.emailAddress}</span>
+                            <span className="customer-info">{customer.phoneNumber}</span>
+                          </li>
+                        ))
+                      : customers.slice(0, 5).map((customer) => (
+                          <li key={customer._id} className="customer-item">
+                            <span className="customer-info">{customer.fullName}</span>
+                            <span className="customer-info">{customer.emailAddress}</span>
+                            <span className="customer-info">{customer.phoneNumber}</span>
+                          </li>
+                        ))}
+                  </ul>
                 )}
-              </ul>
+              </div>
+              <button className="show-all-button" onClick={toggleShowAllCustomers}>
+                {showAllCustomers ? 'Show Less' : 'Show All'}
+              </button>
             </div>
-            <button className="show-all-button" onClick={toggleShowAllCustomers}>
-              {showAllCustomers ? 'Show Less' : 'Show All'}
-            </button>
           </div>
-        </div>
       )}
     </Fragment>
   );

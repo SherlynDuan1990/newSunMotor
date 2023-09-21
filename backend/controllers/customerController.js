@@ -4,8 +4,7 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 exports.getAllCustomers = catchAsyncErrors(async (req, res, next) => {
     try {
-        // Fetch all customers
-        const customers = await Customer.find();
+        const customers = await Customer.find({}, 'fullName emailAddress phoneNumber');
 
         res.status(200).json({
             success: true,

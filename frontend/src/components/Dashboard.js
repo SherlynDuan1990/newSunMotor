@@ -137,7 +137,7 @@ const Dashboard = () => {
                             <span className="customer-info">{customer.phoneNumber}</span>
                           </li>
                         ))
-                      : customers.slice(0, 5).map((customer) => (
+                      : customers.slice(-5).map((customer) => (
                           <li key={customer._id} className="customer-item">
                             <span className="customer-info">{customer.fullName}</span>
                             <span className="customer-info">{customer.emailAddress}</span>

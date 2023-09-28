@@ -1,7 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addContract } from '../actions/contractActions';
+import { useAlert } from 'react-alert';
 
 const SalesAgreement = () => {
+    const dispatch = useDispatch();
+    const alert = useAlert();
+  // Define state for customer and contract data
+  const [customerData, setCustomerData] = useState({
+    fullName: '',
+    emailAddress: '',
+    phoneNumber: '',
+    dateOfBirth: '',
+    driverLicense: '',
+  });
+
+  const [contractData, setContractData] = useState({
+    vinNumber: '',
+    engineNumber: '',
+    plateNumber: '',
+    price: 0,
+  });
+
+  // Handle input changes for customer data
+  const handleCustomerInputChange = (e) => {
+    const { name, value } = e.target;
+    setCustomerData({ ...customerData, [name]: value });
+  };
+
+  // Handle input changes for contract data
+  const handleContractInputChange = (e) => {
+    const { name, value } = e.target;
+    setContractData({ ...contractData, [name]: value });
+  };
+
+  // Handle the "Confirm and Print" button click
+  const handleAddContract = () => {
+    const dataToSubmit = {
+      ...customerData,
+      contract: {
+        ...contractData,
+        carDetails: {
+          vinNumber: contractData.vinNumber,
+          engineNumber: contractData.engineNumber,
+          plateNumber: contractData.plateNumber,
+          price: contractData.price,
+        },
+      },
+    };
+
+    dispatch(addContract(dataToSubmit));
+        alert.success('Congratulations! You have successfully created a contract');
+
+    // Clear the form fields after submission (optional)
+    setCustomerData({
+      fullName: '',
+      emailAddress: '',
+      phoneNumber: '',
+      dateOfBirth: '',
+      driverLicense: '',
+    });
+    setContractData({
+      vinNumber: '',
+      engineNumber: '',
+      plateNumber: '',
+      price: 0,
+    });
+  };
+
+    
   return (
+    
     <div>
     <h1 className="sold-title">Vehicle Sold Agreement</h1>
     <div className="sell-agreement">
@@ -32,21 +101,41 @@ const SalesAgreement = () => {
             <div className="left">
                 <div className="input-group">
                 <label>VIN Number:</label>
-                <input type="text" name="vinNumber" />
+                <input
+                  type="text"
+                  name="vinNumber"
+                  value={contractData.vinNumber}
+                  onChange={handleContractInputChange}
+                />
                 </div>
                 <div className="input-group">
                 <label>Plate Number:</label>
-                <input type="text" name="plateNumber" />
+                <input
+                  type="text"
+                  name="plateNumber"
+                  value={contractData.plateNumber}
+                  onChange={handleContractInputChange}
+                />
                 </div>
             </div>
             <div className="right">
                 <div className="input-group">
                 <label>Engine Number:</label>
-                <input type="text" name="engineNumber" />
+                <input
+                  type="text"
+                  name="engineNumber"
+                  value={contractData.engineNumber}
+                  onChange={handleContractInputChange}
+                />
                 </div>
                 <div className="input-group">
                 <label>Price:</label>
-                <input type="number" name="price" />
+                <input
+                  type="number"
+                  name="price"
+                  value={contractData.price}
+                  onChange={handleContractInputChange}
+                />
                 </div>
             </div>
             </div>
@@ -57,26 +146,51 @@ const SalesAgreement = () => {
             <div className="left">
                 <div className="input-group">
                 <label>Email Address:</label>
-                <input type="email" name="emailAddress" />
+                <input
+                type="email"
+                name="emailAddress"
+                value={customerData.emailAddress}
+                onChange={handleCustomerInputChange}
+              />
                 </div>
                 <div className="input-group">
                 <label>Full Name:</label>
-                <input type="text" name="fullName" />
+                <input
+                type="text"
+                name="fullName"
+                value={customerData.fullName}
+                onChange={handleCustomerInputChange}
+              />
                 </div>
                 <div className="input-group">
                 <label>Phone Number:</label>
-                <input type="text" name="phoneNumber" />
+                <input
+                type="text"
+                name="phoneNumber"
+                value={customerData.phoneNumber}
+                onChange={handleCustomerInputChange}
+              />
                 </div>
 
             </div>
             <div className="right">
                 <div className="input-group">
                 <label>Date of Birth:</label>
-                <input type="date" name="dateOfBirth" />
+                <input
+                type="date"
+                name="dateOfBirth"
+                value={customerData.dateOfBirth}
+                onChange={handleCustomerInputChange}
+              />
                 </div>
                 <div className="input-group">
                 <label>Driver License:</label>
-                <input type="text" name="driverLicense" />
+                <input
+                type="text"
+                name="driverLicense"
+                value={customerData.driverLicense}
+                onChange={handleCustomerInputChange}
+              />
                 </div>
             </div>
             </div>
@@ -89,7 +203,7 @@ const SalesAgreement = () => {
       
       
       <div className="confirm-print">
-        <button>Confirm and Print</button>
+        <button onClick={handleAddContract}>Confirm and Print</button>
       </div>
     </div>
 

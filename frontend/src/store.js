@@ -11,6 +11,7 @@ import { newCarReducers,
 import {contactUsReducers} from "./reducers/contactUsReducers"
 import {aboutUsReducer} from "./reducers/aboutUsReducers"
 import {authReducer} from "./reducers/userReducers"
+import {contractReducer} from "./reducers/contractReducers"
 
 const reducer=combineReducers({
     cars: carReducers,
@@ -20,7 +21,8 @@ const reducer=combineReducers({
     contactUs: contactUsReducers,
     philosophy: aboutUsReducer,
     auth: authReducer,
-    listingVehicles:listingVehiclesReducer
+    listingVehicles:listingVehiclesReducer,
+    newContract:contractReducer,
 
 })
 let initialState ={}

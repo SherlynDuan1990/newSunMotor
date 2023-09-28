@@ -12,7 +12,7 @@ export const addContract = (contractData) => async (dispatch) => {
   
     try {
       const {data} = await axios.post('/api/v1/admin/contract', contractData)
-      console.log(data)
+    
 
   
       dispatch({

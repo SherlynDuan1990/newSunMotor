@@ -36,37 +36,52 @@ const SalesAgreement = () => {
 
   // Handle the "Confirm and Print" button click
   const handleAddContract = () => {
-    const dataToSubmit = {
-      ...customerData,
-      contract: {
-        ...contractData,
-        carDetails: {
-          vinNumber: contractData.vinNumber,
-          engineNumber: contractData.engineNumber,
-          plateNumber: contractData.plateNumber,
-          price: contractData.price,
+    // Check if all required fields are filled
+    if (
+      customerData.fullName === '' ||
+      customerData.emailAddress === '' ||
+      customerData.phoneNumber === '' ||
+      customerData.dateOfBirth === '' ||
+      customerData.driverLicense === '' ||
+      contractData.vinNumber === '' ||
+      contractData.engineNumber === '' ||
+      contractData.price === 0
+    ) {
+      alert.error('Please fill in all required fields.');
+    } else {
+      const dataToSubmit = {
+        ...customerData,
+        contract: {
+          ...contractData,
+          carDetails: {
+            vinNumber: contractData.vinNumber,
+            engineNumber: contractData.engineNumber,
+            plateNumber: contractData.plateNumber,
+            price: contractData.price,
+          },
         },
-      },
-    };
-
-    dispatch(addContract(dataToSubmit));
-        alert.success('Congratulations! You have successfully created a contract');
-
-    // Clear the form fields after submission (optional)
-    setCustomerData({
-      fullName: '',
-      emailAddress: '',
-      phoneNumber: '',
-      dateOfBirth: '',
-      driverLicense: '',
-    });
-    setContractData({
-      vinNumber: '',
-      engineNumber: '',
-      plateNumber: '',
-      price: 0,
-    });
+      };
+  
+      dispatch(addContract(dataToSubmit));
+      alert.success('Congratulations! You have successfully created a contract');
+  
+      // Clear the form fields after submission (optional)
+      setCustomerData({
+        fullName: '',
+        emailAddress: '',
+        phoneNumber: '',
+        dateOfBirth: '',
+        driverLicense: '',
+      });
+      setContractData({
+        vinNumber: '',
+        engineNumber: '',
+        plateNumber: '',
+        price: 0,
+      });
+    }
   };
+  
 
     
   return (
@@ -100,12 +115,13 @@ const SalesAgreement = () => {
             <div className="car-details">
             <div className="left">
                 <div className="input-group">
-                <label>VIN Number:</label>
+                <label>VIN Number * :</label>
                 <input
                   type="text"
                   name="vinNumber"
                   value={contractData.vinNumber}
                   onChange={handleContractInputChange}
+                  required
                 />
                 </div>
                 <div className="input-group">
@@ -115,26 +131,29 @@ const SalesAgreement = () => {
                   name="plateNumber"
                   value={contractData.plateNumber}
                   onChange={handleContractInputChange}
+                  
                 />
                 </div>
             </div>
             <div className="right">
                 <div className="input-group">
-                <label>Engine Number:</label>
+                <label>Engine Number * :</label>
                 <input
                   type="text"
                   name="engineNumber"
                   value={contractData.engineNumber}
                   onChange={handleContractInputChange}
+                  required
                 />
                 </div>
                 <div className="input-group">
-                <label>Price:</label>
+                <label>Price * :</label>
                 <input
                   type="number"
                   name="price"
                   value={contractData.price}
                   onChange={handleContractInputChange}
+                  required
                 />
                 </div>
             </div>
@@ -145,52 +164,58 @@ const SalesAgreement = () => {
             <div className="car-details">
             <div className="left">
                 <div className="input-group">
-                <label>Email Address:</label>
+                <label>Email Address * :</label>
                 <input
                 type="email"
                 name="emailAddress"
                 value={customerData.emailAddress}
                 onChange={handleCustomerInputChange}
+                required
               />
                 </div>
                 <div className="input-group">
-                <label>Full Name:</label>
+                <label>Full Name * :</label>
                 <input
                 type="text"
                 name="fullName"
                 value={customerData.fullName}
                 onChange={handleCustomerInputChange}
+                required
               />
                 </div>
                 <div className="input-group">
-                <label>Phone Number:</label>
+                <label>Phone Number * :</label>
                 <input
                 type="text"
                 name="phoneNumber"
                 value={customerData.phoneNumber}
                 onChange={handleCustomerInputChange}
+                required
               />
                 </div>
 
             </div>
             <div className="right">
                 <div className="input-group">
-                <label>Date of Birth:</label>
+                <label>Date of Birth * :</label>
                 <input
                 type="date"
                 name="dateOfBirth"
                 value={customerData.dateOfBirth}
                 onChange={handleCustomerInputChange}
+                required
               />
                 </div>
                 <div className="input-group">
-                <label>Driver License:</label>
+                <label>Driver License * :</label>
                 <input
                 type="text"
                 name="driverLicense"
                 value={customerData.driverLicense}
                 onChange={handleCustomerInputChange}
+                required
               />
+              
                 </div>
             </div>
             </div>

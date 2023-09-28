@@ -42,6 +42,8 @@ nav {
   margin-right: 35%;
 }
 
+
+
 #search_field {
   height: 2.4rem;
   padding: 1rem;
@@ -1173,6 +1175,8 @@ button:hover {
   flex-direction: column;
   margin-bottom: 10px; /* Add some margin to separate each input group */
 }
+
+
 
 .input-group label {
   margin-bottom: 5px;

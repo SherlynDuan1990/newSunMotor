@@ -3,7 +3,6 @@ const mongoose=require("mongoose")
 
 
 const testDriveSchema = new mongoose.Schema({
-    
     date: {
       type: Date,
       required: true,
@@ -80,7 +79,8 @@ const carsSchema = new mongoose.Schema ({
     },
     model :{
         type:String,
-        default: "N/A"
+        default: "N/A",
+        required: [true, "please enter model"]
     },
     year :{
         type:Number,
@@ -94,7 +94,8 @@ const carsSchema = new mongoose.Schema ({
     },
     body :{
         type:String,
-        default: "N/A"
+        default: "N/A",
+        required: [true, "please enter body"]
     },
     transmission :{
         type:String,

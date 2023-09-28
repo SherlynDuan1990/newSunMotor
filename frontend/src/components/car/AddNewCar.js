@@ -162,6 +162,7 @@ const AddNewCar = () => {
             placeholder="Title"
             value={carData.title}
             onChange={handleInputChange}
+            required
             />
         </div>
         <div className="col-6 text-right">
@@ -177,6 +178,7 @@ const AddNewCar = () => {
             placeholder="Price"
             value={carData.price}
             onChange={handleInputChange}
+            required
             />
         </div>
       </div>
@@ -187,8 +189,9 @@ const AddNewCar = () => {
       {/* Details section */}
       <div className="row">
         <div className="form-group col-6">
-        <label htmlFor="body">stockNo:</label>
+        <label htmlFor="body">stockNo * :</label>
         <input
+            required
             type="number"
             name="stockNo"
             value={carData.stockNo}
@@ -197,6 +200,7 @@ const AddNewCar = () => {
                 margin: '5px',
                 borderColor: '#4E7299', 
               }}
+            
         />
         
       
@@ -212,9 +216,10 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
-        <label htmlFor="transmission">Transmission:</label>
+        <label htmlFor="transmission">Transmission * :</label>
          <input
             type="text"
+            required
             name="transmission"
             value={carData.transmission}
             onChange={handleInputChange}
@@ -234,10 +239,11 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
-        <label htmlFor="kilometers">Kilometers:</label>
+        <label htmlFor="kilometers">Kilometers * :</label>
          <input
             type="number"
             name="kilometers"
+            required
             value={carData.kilometers}
             onChange={handleInputChange}
             style={{
@@ -256,9 +262,10 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
-        <label htmlFor="make">Make:</label>
+        <label htmlFor="make">Make * :</label>
          <input
             type="text"
+            required
             name="make"
             value={carData.make}
             onChange={handleInputChange}
@@ -268,10 +275,11 @@ const AddNewCar = () => {
               }}
         />
 
-          <label htmlFor="model">Model:</label>
+          <label htmlFor="model">Model * :</label>
          <input
             type="text"
             name="model"
+            required
             value={carData.model}
             onChange={handleInputChange}
             style={{
@@ -279,9 +287,10 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
-        <label htmlFor="body">Body:</label>
+        <label htmlFor="body">Body * :</label>
         <input
             type="text"
+            required
             name="body"
             value={carData.body}
             onChange={handleInputChange}
@@ -296,10 +305,11 @@ const AddNewCar = () => {
     
        
         <div className="form-group col-6 text-right">
-        <label htmlFor="year"> Year:</label>
+        <label htmlFor="year"> Year * :</label>
           <input
               type="number"
               name="year"
+              required
               value={carData.year}
               onChange={handleInputChange}
               style={{
@@ -307,9 +317,10 @@ const AddNewCar = () => {
                   borderColor: '#4E7299', 
                 }}
           />
-        <label htmlFor="vinNo"> vinNo:</label>
+        <label htmlFor="vinNo"> vinNo * :</label>
           <input
               type="text"
+              required
               name="vinNo"
               value={carData.vinNo}
               onChange={handleInputChange}
@@ -331,9 +342,10 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
-        <label htmlFor="fuelType">Fuel Type:</label>
+        <label htmlFor="fuelType">Fuel Type * :</label>
          <input
             type="text"
+            required
             name="fuelType"
             value={carData.fuelType}
             onChange={handleInputChange}
@@ -342,10 +354,11 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
-        <label htmlFor="engineSize">Engine Size:</label>
+        <label htmlFor="engineSize">Engine Size * :</label>
          <input
             type="text"
             name="engineSize"
+            required
             value={carData.engineSize}
             onChange={handleInputChange}
             style={{

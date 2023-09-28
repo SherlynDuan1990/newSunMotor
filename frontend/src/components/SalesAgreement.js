@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SellAgreement = () => {
+const SalesAgreement = () => {
   return (
     <div>
     <h1 className="sold-title">Vehicle Sold Agreement</h1>
@@ -96,4 +96,4 @@ const SellAgreement = () => {
   );
 };
 
-export default SellAgreement;
+export default SalesAgreement;

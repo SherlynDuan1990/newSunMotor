@@ -45,3 +45,30 @@ exports.newCustomer = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler('Failed to create a new customer', 500));
     }
 });
+
+
+exports.newContract = catchAsyncErrors(async (req, res, next) => {
+    const { fullName, emailAddress, phoneNumber, dateOfBirth, driverLicense, contract } = req.body;
+
+    try {
+        // Create a new customer
+        const customer = await Customer.create({
+            fullName,
+            emailAddress,
+            phoneNumber,
+            dateOfBirth,
+            driverLicense,
+            contract,
+        });
+
+        res.status(201).json({
+            success: true,
+            message: 'Customer created successfully',
+            customer,
+        });
+    } catch (error) {
+        console.error(error);
+        // Use the custom error handler to handle errors
+        return next(new ErrorHandler('Failed to create a new customer', 500));
+    }
+});

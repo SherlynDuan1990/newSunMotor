@@ -1190,18 +1190,24 @@ button:hover {
 }
 
 
-/* print.css */
+/* Add this CSS in your stylesheet or in a <style> tag within your component */
 
-/* Hide the navigation header and footer */
-.header,
-.footer,
-.navigation {
-  display: none;
-}
-
-/* Style the printable content */
+/* Define a class for the printable content */
 .printable-content {
-  /* Add styles for the printable content here */
- 
-  /* ... */
+  /* Your website's styling for the content goes here */
 }
+
+/* Hide unwanted elements on the print page */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .printable-content,
+  .printable-content * {
+    visibility: visible;
+  }
+
+  /* Add your print-specific styles here */
+}
+

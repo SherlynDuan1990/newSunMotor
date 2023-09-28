@@ -94,7 +94,7 @@ const SalesAgreement = () => {
   return (
     
     <div >
-    <div className=" printable-content">
+    <div className="printable-content" ref={printableRef}>
     <h1 className="sold-title">Vehicle Sold Agreement</h1>
     <div className="sell-agreement">
         <div className="company">

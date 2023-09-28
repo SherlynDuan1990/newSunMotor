@@ -1188,3 +1188,20 @@ button:hover {
   border: 1px solid #438a38;
   border-radius: 4px;
 }
+
+
+/* print.css */
+
+/* Hide the navigation header and footer */
+.header,
+.footer,
+.navigation {
+  display: none;
+}
+
+/* Style the printable content */
+.printable-content {
+  /* Add styles for the printable content here */
+  font-size: 14px;
+  /* ... */
+}

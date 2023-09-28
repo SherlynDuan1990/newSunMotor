@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { addContract } from '../actions/contractActions';
 import { useAlert } from 'react-alert';
 
 const SalesAgreement = () => {
-    const dispatch = useDispatch();
-    const alert = useAlert();
+  const dispatch = useDispatch();
+  const alert = useAlert();
+
+    // Define a ref for the printable content
+  const printableRef = useRef(null);
+
   // Define state for customer and contract data
   const [customerData, setCustomerData] = useState({
     fullName: '',
@@ -62,8 +66,8 @@ const SalesAgreement = () => {
         },
       };
   
-      dispatch(addContract(dataToSubmit));
-      alert.success('Congratulations! You have successfully created a contract');
+      // dispatch(addContract(dataToSubmit));
+      // alert.success('Congratulations! You have successfully created a contract');
   
       // Clear the form fields after submission (optional)
       setCustomerData({
@@ -79,6 +83,9 @@ const SalesAgreement = () => {
         plateNumber: '',
         price: 0,
       });
+
+      // Print the content
+      window.print();
     }
   };
   
@@ -86,7 +93,8 @@ const SalesAgreement = () => {
     
   return (
     
-    <div>
+    <div >
+    <div className=" printable-content">
     <h1 className="sold-title">Vehicle Sold Agreement</h1>
     <div className="sell-agreement">
         <div className="company">
@@ -215,10 +223,11 @@ const SalesAgreement = () => {
                 onChange={handleCustomerInputChange}
                 required
               />
-              
+
                 </div>
             </div>
             </div>
+        </div>
         </div>
         </div>
 

@@ -22,7 +22,7 @@ const Footer = () => {
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-        alert.error('Failed to fetch user data');
+       
       }
     }
 

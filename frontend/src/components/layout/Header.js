@@ -8,6 +8,16 @@ const Header = () => {
   const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
   const [userData, setUserData] = useState(null);
 
+  // Define a CSS style object to set the background color
+  const headerStyle = {
+   
+    height: '120px',
+    marginLeft: "40px",
+    marginRight: "40px",
+    marginTop: "20px",
+    marginBottom: "20px",
+  };
+
   useEffect(() => {
     // Fetch user data when the component mounts
     async function fetchUserData() {
@@ -19,7 +29,7 @@ const Header = () => {
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-        alert.error('Failed to fetch user data');
+       
       }
     }
 
@@ -30,7 +40,7 @@ const Header = () => {
 
   return (
     <Fragment>
-      <nav className="navbar row">
+      <nav className="navbar row" style={headerStyle}>
         <div className="col-12 col-md-3">
           <div className="navbar-brand">
             <img className="logoImg" src="/images/logo.png" alt="Logo" />

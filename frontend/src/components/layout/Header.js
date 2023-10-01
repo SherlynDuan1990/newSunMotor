@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const Header = () => {
@@ -10,33 +9,32 @@ const Header = () => {
 
   // Define a CSS style object to set the background color
   const headerStyle = {
-   
     height: '120px',
-    marginLeft: "40px",
-    marginRight: "40px",
-    marginTop: "20px",
-    marginBottom: "20px",
+    marginLeft: '40px',
+    marginRight: '40px',
+    marginTop: '20px',
+    marginBottom: '20px',
   };
 
   useEffect(() => {
     // Fetch user data when the component mounts
     async function fetchUserData() {
       try {
-        const res = await axios.get('/api/v1/me'); // Replace with your API endpoint
+        const res = await axios.get('http://127.0.0.1:4000/api/v1/me'); // Replace with your API endpoint
+
         if (res.data.success) {
           const userData = res.data.user;
           setUserData(userData);
+          
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-       
       }
     }
 
-    if (userFromLocalStorage) {
-      fetchUserData();
-    }
-  }, [alert, userFromLocalStorage]);
+    fetchUserData(); // Call fetchUserData unconditionally
+
+  }, []);
 
   return (
     <Fragment>
@@ -49,18 +47,14 @@ const Header = () => {
 
         <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
           <i style={{ fontSize: '100%', verticalAlign: 'middle' }} className="material-icons">phone</i>
-          {userData ? (
-            <span>Call us: {userData.phone}</span>
-          ) : (
-            <span>Call us: Loading...</span>
-          )}
+          <span>
+            Call us: {userData ? userData.phone : 'Loading...'}
+          </span>
           <br />
           <i style={{ fontSize: '100%', verticalAlign: 'middle' }} className="material-icons">email</i>
-          {userData ? (
-            <span>Email: {userData.email}</span>
-          ) : (
-            <span>Email: Loading...</span>
-          )}
+          <span>
+            Email: {userData ? userData.email : 'Loading...'}
+          </span>
         </div>
 
         {userFromLocalStorage && (

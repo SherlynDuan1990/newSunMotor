@@ -15,21 +15,19 @@ const Footer = () => {
     // Fetch user data when the component mounts
     async function fetchUserData() {
       try {
-        const res = await axios.get('/api/v1/me'); // Replace with your API endpoint
+        const res = await axios.get('http://127.0.0.1:4000/api/v1/me'); // Replace with your API endpoint
         if (res.data.success) {
           const userData = res.data.user;
           setUserData(userData);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-       
       }
     }
 
-    if (userFromLocalStorage) {
-      fetchUserData();
-    }
-  }, [alert, userFromLocalStorage]);
+    fetchUserData(); // Call fetchUserData unconditionally
+
+  }, []);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -43,18 +41,24 @@ const Footer = () => {
             <div className="col-md-4">
               <h4 className="footer-heading">Contact Us</h4>
               <p className="footer-text">
-                Henry He Sales Manager <br />
-                Phone: <span className="footer-emphasis">{userData ? userData.phone : 'Loading...'}</span> <br />
-                Email: <span className="footer-emphasis">{userData ? userData.email : 'Loading...'}</span>
+                {userData ? (
+                  <Fragment>
+                    {userData.name}, {userData.position} <br />
+                    Phone: <span className="footer-emphasis">{userData.phone || 'N/A'}</span> <br />
+                    Email: <span className="footer-emphasis">{userData.email || 'N/A'}</span>
+                  </Fragment>
+                ) : (
+                  'Loading...'
+                )}
               </p>
             </div>
 
             <div className="col-md-4">
               <h4 className="footer-heading">Find Us</h4>
               <p className="footer-text">
-                Phone: <span className="footer-emphasis">{userData ? userData.phone : 'Loading...'}</span> <br />
-                Email: <span className="footer-emphasis">{userData ? userData.email : 'Loading...'}</span> <br />
-                Address: <span className="footer-emphasis">718b Te Rapa Road, Te Rapa, Hamilton</span>
+                Phone: <span className="footer-emphasis">{userData ? userData.phone || 'N/A' : 'Loading...'}</span> <br />
+                Email: <span className="footer-emphasis">{userData ? userData.email || 'N/A' : 'Loading...'}</span> <br />
+                Address: <span className="footer-emphasis">Your New Address Here</span>
               </p>
             </div>
 

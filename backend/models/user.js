@@ -39,17 +39,35 @@ const userSchema = new mongoose.Schema ({
         unique:true,
         validate: [validator.isEmail, "Please enter valid email address"]
     }, 
+    position:{
+        type:String,
+    },
+    phone:{
+        type:String,
+    },
+
     password:{
         type:String,
         required: [true, "please enter your password"],
         minlength: [6, "Your password must be longer than 6 characters"],
         select:false
     },
-
     role:{
         type:String,
         default:"user"
     },
+   
+    address:{
+        type:String,
+    },
+    bankAccount:{
+        type:String,
+    },
+    
+    aboutUs:{
+        type:String,
+    },
+
 
     createdAt:{
         type:Date,

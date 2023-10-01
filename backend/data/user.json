@@ -1,8 +1,13 @@
 {
     "name": "newSunMotor",
     "email": "henryaax@gmail.com",
+    "position" : "Sales Manager",
+    "phone" : "022-6989-700",
     "password": "12345678",
     "role": "admin",
+    "address" : "718b Te Rapa Road, Te Rapa, Hamilton",
+    "bankAccount" : "06-0229-0321064-00",
+    "aboutUs" : "Welcome to New Sun Motor - Your Trusted Partner in Quality Used Cars!At New Sun Motor, we take pride in being one of Hamilton's leading destinations for high-quality used cars. With years of experience in the automotive industry, we have built a strong reputation for providing top-notch vehicles and exceptional customer service to our valued clients.", 
     "philosophy": [
         {
             "strands": [

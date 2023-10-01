@@ -167,22 +167,55 @@ exports.updatePassword= catchAsyncErrors (async (req, res, next)=>{
 
 //update user profile =./api/v1/me/update
 exports.updateProfile =catchAsyncErrors (async (req, res, next)=>{
-    const newUserData = {
-        name: req.body.name, 
-        email:req.body.email
-    }
+    try {
+        const { name, email, password, position, phone, address, bankAccount, aboutUs } = req.body;
+        
+        const user = await User.findOne({  role: 'admin' }); // Find the user by email
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
 
-
-    const user=await User.findByIdAndUpdate(req.user.id, newUserData, {
-        new:true, 
-        runValidators:true, 
-        useFindAndModify:false
-    })
-
-    res.status(200).json({
-        success:true
-    })
-})
+        // Update the user's profile fields if provided
+        if (name) {
+            user.name = name;
+        }
+    
+        if (email) {
+            user.email = email;
+        }
+    
+        if (password) {
+            user.password = password;
+        }
+    
+        if (position) {
+            user.position = position;
+        }
+    
+        if (phone) {
+            user.phone = phone;
+        }
+    
+        if (address) {
+            user.address = address;
+        }
+    
+        if (bankAccount) {
+            user.bankAccount = bankAccount;
+        }
+    
+        if (aboutUs) {
+            user.aboutUs = aboutUs;
+        }
+    
+        // Save the updated user profile
+        await user.save();
+    
+        res.status(200).json({ success: true, message: 'Profile updated successfully' });
+        } catch (error) {
+        next(new ErrorHandler(error.message, 500));
+        }
+    });
 
 
 

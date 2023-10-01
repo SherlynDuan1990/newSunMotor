@@ -23,7 +23,7 @@ const SalesAgreement = () => {
     vinNumber: '',
     engineNumber: '',
     plateNumber: '',
-    price: 0,
+    price: '',
   });
 
   // Handle input changes for customer data
@@ -49,7 +49,7 @@ const SalesAgreement = () => {
       customerData.driverLicense === '' ||
       contractData.vinNumber === '' ||
       contractData.engineNumber === '' ||
-      contractData.price === 0
+      contractData.price === '' 
     ) {
       alert.error('Please fill in all required fields.');
     } else {
@@ -81,7 +81,7 @@ const SalesAgreement = () => {
         vinNumber: '',
         engineNumber: '',
         plateNumber: '',
-        price: 0,
+        price: '',
       });
 
       // Print the content

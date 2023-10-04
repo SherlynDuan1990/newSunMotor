@@ -146,6 +146,24 @@ const AddNewCar = () => {
     }
   };
 
+    const [selectAllFeatures, setSelectAllFeatures] = useState(false);
+
+  const handleSelectAllFeatures = () => {
+    const allFeatureNames = featureOptions.map((feature) => feature);
+    if (!selectAllFeatures) {
+      setCarData({
+        ...carData,
+        features: allFeatureNames,
+      });
+    } else {
+      setCarData({
+        ...carData,
+        features: [],
+      });
+    }
+    setSelectAllFeatures(!selectAllFeatures);
+  };
+
   return (
     <div className="col-12 mt-5">
       <div className="row">
@@ -417,11 +435,29 @@ const AddNewCar = () => {
 
       <hr />
       <div className="features">
-        <h4>Features:</h4>
+        <h4>
+          Features:
+          <label style={{ marginLeft: '20px', fontSize: "14px" }}>
+            <input
+              type="checkbox"
+              name="selectAllFeatures"
+              checked={selectAllFeatures}
+              onChange={handleSelectAllFeatures}
+            
+            />
+            Select All
+          </label>
+        </h4>
         <div className="row">
           {featureOptions.map((feature, index) => (
             <div className="col-md-4" key={index}>
-              <label style={{ display: 'flex', alignItems: 'center', margin: '5px 0' }}>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  margin: '5px 0',
+                }}
+              >
                 <input
                   type="checkbox"
                   name={feature}

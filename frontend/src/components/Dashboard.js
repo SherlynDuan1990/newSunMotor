@@ -118,39 +118,40 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="recent-customers-section">
-              <h2 className="section-heading">Recent Customers</h2>
-              <div className="customer-container">
-                <div className="customer-info-label">
-                  <p className="label">Full Name</p>
-                  <p className="label">Email Address</p>
-                  <p className="label">Phone Number</p>
-                </div>
-                {loadingCustomers ? ( // Display loading message while customers data is loading
-                  <p>Loading customers...</p>
-                ) : (
-                  <ul className="customer-list">
-                    {showAllCustomers
-                      ? customers.map((customer) => (
-                          <li key={customer._id} className="customer-item">
-                            <span className="customer-info">{customer.fullName}</span>
-                            <span className="customer-info">{customer.emailAddress}</span>
-                            <span className="customer-info">{customer.phoneNumber}</span>
-                          </li>
-                        ))
-                      : customers.slice(-5).map((customer) => (
-                          <li key={customer._id} className="customer-item">
-                            <span className="customer-info">{customer.fullName}</span>
-                            <span className="customer-info">{customer.emailAddress}</span>
-                            <span className="customer-info">{customer.phoneNumber}</span>
-                          </li>
-                        ))}
-                  </ul>
-                )}
+            <h2 className="section-heading">Recent Customers</h2>
+            <div className="customer-container">
+              <div className="customer-info-label">
+                <p className="label">Full Name</p>
+                <p className="label">Email Address</p>
+                <p className="label">Phone Number</p>
               </div>
-              <button className="show-all-button" onClick={toggleShowAllCustomers}>
-                {showAllCustomers ? 'Show Less' : 'Show All'}
-              </button>
+              {loadingCustomers ? ( // Display loading message while customers data is loading
+                <p>Loading customers...</p>
+              ) : (
+                <ul className="customer-list">
+                  {showAllCustomers
+                    ? customers.map((customer) => (
+                        <li key={customer._id} className="customer-item">
+                          <span className="customer-info">{customer.fullName}</span>
+                          <span className="customer-info">{customer.emailAddress}</span>
+                          <span className="customer-info">{customer.phoneNumber}</span>
+                        </li>
+                      ))
+                    : customers.slice(-5).reverse().map((customer) => (
+                        <li key={customer._id} className="customer-item">
+                          <span className="customer-info">{customer.fullName}</span>
+                          <span className="customer-info">{customer.emailAddress}</span>
+                          <span className="customer-info">{customer.phoneNumber}</span>
+                        </li>
+                      ))}
+                </ul>
+              )}
             </div>
+            <button className="show-all-button" onClick={toggleShowAllCustomers}>
+              {showAllCustomers ? 'Show Less' : 'Show All'}
+            </button>
+          </div>
+
           </div>
       )}
     </Fragment>

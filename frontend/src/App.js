@@ -21,6 +21,7 @@ import Account from "./components/user/Account"
 
 
 
+
 function App() {
   return (
     <Router>
@@ -50,6 +51,7 @@ const WithHeaderFooterNav = () => (
         <Route path="/search" element={<Stock />} />
         <Route path="/contact" element={<ContactUs />} exact />
         <Route path="/about" element={<AboutUs />} exact />
+        
         <Route path="/admin/stock" element={<AdminStock />} exact />
         <Route path="/admin/add-vehicle" element={<AddNewCar />} exact />
         <Route path="/car/:id/update" element={<UpdateCar/>}  />

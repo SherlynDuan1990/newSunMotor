@@ -66,8 +66,8 @@ const SalesAgreement = () => {
         },
       };
   
-      // dispatch(addContract(dataToSubmit));
-      // alert.success('Congratulations! You have successfully created a contract');
+      dispatch(addContract(dataToSubmit));
+      alert.success('Congratulations! You have successfully created a contract');
   
       // Clear the form fields after submission (optional)
       setCustomerData({

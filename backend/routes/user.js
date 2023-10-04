@@ -20,9 +20,9 @@ router.route("/login").post(loginUser);
 router.route("/logout").get(logout);
 router.route("/password/forgot").post(forgotPassword);
 router.route("/password/reset/:token").put(resetPassword);
-router.route("/me").get( getUserProfile);
+router.route("/me").get(  getUserProfile);
 router.route("/password/update").put(isAuthenticatedUser,  updatePassword);
-router.route("/me/update").put( updateProfile);
+router.route("/me/update").put(  isAuthenticatedUser, authorizeRoles("admin"), updateProfile);
 router.get('/aboutUs', getAboutUs);
 
 module.exports=router;

@@ -30,17 +30,16 @@ router.route("/car/:id").get(getSingleCar);
 
 router.route("/car/:id/testdrive").post(bookTestdrive);
 
-router.route("/admin/car/new").post( newCar); //isAuthenticatedUser, authorizeRoles("admin"),
-
+router.route("/admin/car/new").post( newCar); 
 
 router.route("/admin/car/:id")
-                            .put(updateCar) //isAuthenticatedUser, authorizeRoles("admin"),
-                            .delete( deleteCar) //isAuthenticatedUser, authorizeRoles("admin"),
-router.route("/car/:id/status").put( updateCarStatus);  //isAuthenticatedUser, authorizeRoles("admin"),
+                            .put(isAuthenticatedUser, authorizeRoles("admin"), updateCar) 
+                            .delete(isAuthenticatedUser, authorizeRoles("admin"),  deleteCar) 
+router.route("/car/:id/status").put( isAuthenticatedUser, authorizeRoles("admin"), updateCarStatus);  
 
-router.route("/car/dashboard/listingVehicles").get(getListingVehicles); 
+router.route("/car/dashboard/listingVehicles").get( getListingVehicles); 
 
-router.route("/car/dashboard/soldVehicles").post(getSoldVehicles); 
+router.route("/car/dashboard/soldVehicles").post( getSoldVehicles); 
 
 
 

@@ -10,7 +10,7 @@ import {
   } from '../constants/userConstants';
   
   
-  export const authReducer = (state = {user:{}}, action) => {
+  export const authReducer = (state = {auth:{}}, action) => {
     switch (action.type) {
       case LOGIN_REQUEST:
         return {

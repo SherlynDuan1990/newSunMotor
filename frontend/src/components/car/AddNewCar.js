@@ -159,7 +159,7 @@ const AddNewCar = () => {
             }}
             type="text"
             name="title"
-            placeholder="Title"
+            placeholder="Title * "
             value={carData.title}
             onChange={handleInputChange}
             required
@@ -175,7 +175,7 @@ const AddNewCar = () => {
             }}
             type="text"
             name="price"
-            placeholder="Price"
+            placeholder="Price * "
             value={carData.price}
             onChange={handleInputChange}
             required

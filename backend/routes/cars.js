@@ -37,7 +37,7 @@ router.route("/admin/car/:id")
                             .delete(isAuthenticatedUser, authorizeRoles("admin"),  deleteCar) 
 router.route("/car/:id/status").put( isAuthenticatedUser, authorizeRoles("admin"), updateCarStatus);  
 
-router.route("/car/dashboard/listingVehicles").get( getListingVehicles); 
+router.route("/car/dashboard/listingVehicles").get(getListingVehicles); 
 
 router.route("/car/dashboard/soldVehicles").post( getSoldVehicles); 
 

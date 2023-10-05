@@ -58,7 +58,7 @@ const Footer = () => {
               <p className="footer-text">
                 Phone: <span className="footer-emphasis">{userData ? userData.phone || 'N/A' : 'Loading...'}</span> <br />
                 Email: <span className="footer-emphasis">{userData ? userData.email || 'N/A' : 'Loading...'}</span> <br />
-                Address: <span className="footer-emphasis">Your New Address Here</span>
+                Address: <span className="footer-emphasis">{userData ? userData.address || 'N/A' : 'Loading...'}</span>
               </p>
             </div>
 

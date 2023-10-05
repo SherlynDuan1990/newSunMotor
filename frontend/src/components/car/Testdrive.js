@@ -67,6 +67,16 @@ const Testdrive = () => {
 
 
     const handleConfirm = () => {
+      if (
+        !customerInfo.email ||
+        !customerInfo.phoneNumber ||
+        !customerInfo.drivingLicense ||
+        !customerInfo.fullName ||
+        !customerInfo.dateOfBirth
+      ) {
+        alert.error('All fields are required');
+        return;
+      }
         dispatch(bookTestdrive(id, bookingData));
         alert.success('Congratulations! You have successfully booked a test drive');
          // Reset the state of input fields and selected date
@@ -120,7 +130,7 @@ const Testdrive = () => {
                 <hr />
 
                <div className="time-picker-section">
-                    <h3 className="section-title">Select Date and Time</h3>
+                    <h3 className="section-title">Select Date and Time * </h3>
                     <div className="time-picker-container">
                         <DatePicker
                         selected={selectedDate}
@@ -137,7 +147,7 @@ const Testdrive = () => {
                         <div className="customer-details-container">
                             <div className="left-form">
                             <div className="form-group">
-                                <label>Email Address</label>
+                                <label>Email Address *</label>
                                 <input
                                 type="email"
                                 name="email"
@@ -146,7 +156,7 @@ const Testdrive = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Phone Number</label>
+                                <label>Phone Number *</label>
                                 <input
                                 type="tel"
                                 name="phoneNumber"
@@ -155,7 +165,7 @@ const Testdrive = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Driver's License</label>
+                                <label>Driver's License *</label>
                                 <input
                                 type="text"
                                 name="drivingLicense"
@@ -166,7 +176,7 @@ const Testdrive = () => {
                             </div>
                             <div className="right-form">
                             <div className="form-group">
-                                <label>Full Name</label>
+                                <label>Full Name *</label>
                                 <input
                                 type="text"
                                 name="fullName"
@@ -175,7 +185,7 @@ const Testdrive = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Date of Birth</label>
+                                <label>Date of Birth *</label>
                                 <input
                                 type="date"
                                 name="dateOfBirth"

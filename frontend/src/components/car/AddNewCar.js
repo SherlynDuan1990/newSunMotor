@@ -105,6 +105,26 @@ const AddNewCar = () => {
   
 
   const handleAddCar = async () => {
+     // Validate required fields before submission
+     if (
+      !carData.title ||
+      !carData.price ||
+      !carData.stockNo ||
+      !carData.year ||
+      !carData.vinNo ||
+      !carData.kilometers ||
+      !carData.fuelType ||
+      !carData.transmission ||
+      !carData.body ||
+      !carData.status ||
+      !carData.make ||
+      !carData.model ||
+      !carData.features ||
+      !carData.engineSize
+    ) {
+      alert.error('Please fill in all the required fields marked with *');
+      return;
+    }
     try {
       // Send a POST request to create a new car with carData
       await dispatch(addNewCar(carData));
@@ -417,7 +437,7 @@ const AddNewCar = () => {
                 borderColor: '#4E7299', 
               }}
         />
-        <label htmlFor="status">Status:</label>
+        <label htmlFor="status">Status * :</label>
         <input
             type="text"
             name="status"
@@ -436,7 +456,7 @@ const AddNewCar = () => {
       <hr />
       <div className="features">
         <h4>
-          Features:
+          Features * :
           <label style={{ marginLeft: '20px', fontSize: "14px" }}>
             <input
               type="checkbox"

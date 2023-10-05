@@ -130,7 +130,7 @@ const Dashboard = () => {
               ) : (
                 <ul className="customer-list">
                   {showAllCustomers
-                    ? customers.map((customer) => (
+                    ? customers.reverse().map((customer) => (
                         <li key={customer._id} className="customer-item">
                           <span className="customer-info">{customer.fullName}</span>
                           <span className="customer-info">{customer.emailAddress}</span>

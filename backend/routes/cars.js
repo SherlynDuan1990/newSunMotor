@@ -33,9 +33,9 @@ router.route("/car/:id/testdrive").post(bookTestdrive);
 router.route("/admin/car/new").post( newCar); 
 
 router.route("/admin/car/:id")
-                            .put(isAuthenticatedUser, authorizeRoles("admin"), updateCar) 
-                            .delete(isAuthenticatedUser, authorizeRoles("admin"),  deleteCar) 
-router.route("/car/:id/status").put( isAuthenticatedUser, authorizeRoles("admin"), updateCarStatus);  
+                            .put( updateCar) 
+                            .delete( deleteCar) 
+router.route("/car/:id/status").put( updateCarStatus);  
 
 router.route("/car/dashboard/listingVehicles").get(getListingVehicles); 
 

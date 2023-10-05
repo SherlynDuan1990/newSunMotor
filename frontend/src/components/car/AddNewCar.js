@@ -120,6 +120,7 @@ const AddNewCar = () => {
       !carData.make ||
       !carData.model ||
       !carData.features ||
+      !carData.description ||
       !carData.engineSize
     ) {
       alert.error('Please fill in all the required fields marked with *');
@@ -496,7 +497,7 @@ const AddNewCar = () => {
       <hr />
 
       {/* Description section */}
-      <h4>Description:</h4>
+      <h4>Description * :</h4>
       <textarea
       className="mt-2"
       name="description"
@@ -515,7 +516,7 @@ const AddNewCar = () => {
 
       <div >
      
-      <h4 style={{ color:"#438A38", fontSize:"24px", marginRight: "5px"}}>Choose file to upload photos:</h4>
+      <h4 style={{ color:"#438A38", fontSize:"24px", marginRight: "5px"}}>Choose file to upload photos * :</h4>
       <input
         type="file"
         name='images'

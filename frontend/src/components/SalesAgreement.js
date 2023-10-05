@@ -7,8 +7,11 @@ const SalesAgreement = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-    // Define a ref for the printable content
+  // Define a ref for the printable content
   const printableRef = useRef(null);
+
+  // Define state to control whether to display the printable content
+  const [showPrintableContent, setShowPrintableContent] = useState(false);
 
   // Define state for customer and contract data
   const [customerData, setCustomerData] = useState({
@@ -38,8 +41,8 @@ const SalesAgreement = () => {
     setContractData({ ...contractData, [name]: value });
   };
 
-  // Handle the "Confirm and Print" button click
-  const handleAddContract = () => {
+  // Handle the "Confirm" button click
+  const handleConfirm = () => {
     // Check if all required fields are filled
     if (
       customerData.fullName === '' ||
@@ -49,10 +52,17 @@ const SalesAgreement = () => {
       customerData.driverLicense === '' ||
       contractData.vinNumber === '' ||
       contractData.engineNumber === '' ||
-      contractData.price === '' 
+      contractData.price === ''
     ) {
       alert.error('Please fill in all required fields.');
     } else {
+      setShowPrintableContent(true);
+    }
+  };
+
+  // Handle the "Print" button click
+  const handlePrint = () => {
+    if (showPrintableContent) {
       const dataToSubmit = {
         ...customerData,
         contract: {
@@ -65,10 +75,10 @@ const SalesAgreement = () => {
           },
         },
       };
-  
+
       dispatch(addContract(dataToSubmit));
       alert.success('Congratulations! You have successfully created a contract');
-  
+
       // Clear the form fields after submission (optional)
       setCustomerData({
         fullName: '',
@@ -236,9 +246,10 @@ const SalesAgreement = () => {
  
       
       
-      <div className="confirm-print">
-        <button onClick={handleAddContract}>Confirm and Print</button>
-      </div>
+        <div className="confirm-print">
+          <button onClick={handleConfirm} style={{ marginRight: '10px' }}>Confirm</button>
+          <button onClick={handlePrint}>Print</button>
+        </div>
     </div>
 
   );

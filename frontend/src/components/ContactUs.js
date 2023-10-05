@@ -29,6 +29,15 @@ const ContactUs = () => {
   
   
     const handleConfirm = () => {
+        if (
+            !customerInfo.email ||
+            !customerInfo.phone ||
+            !customerInfo.fullName ||
+            !customerInfo.message
+          ) {
+            alert.error('All fields are required');
+            return;
+          }
 
         dispatch(contactUs(customerInfo));
         alert.success('Congratulations! You have successfully sent us an enquiry, we will get back to you very soon');
@@ -55,7 +64,7 @@ const ContactUs = () => {
                     <div className="customer-details-container">
                         <div className="left-form">
                             <div className="form-group">
-                                <label>Email Address</label>
+                                <label>Email Address *</label>
                                 <input
                                 type="email"
                                 name="email"
@@ -64,7 +73,7 @@ const ContactUs = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Phone Number</label>
+                                <label>Phone Number *</label>
                                 <input
                                 type="tel"
                                 name="phone"
@@ -75,7 +84,7 @@ const ContactUs = () => {
                         </div>
                         <div className="right-form">
                             <div className="form-group">
-                                <label>Full Name</label>
+                                <label>Full Name *</label>
                                 <input
                                 type="text"
                                 name="fullName"
@@ -88,7 +97,7 @@ const ContactUs = () => {
                 </div>
 
             <div className="customer-details-section">
-                <h3 className="section-title">Message</h3>
+                <h3 className="section-title">Message *</h3>
                     <div className="form-group " >
                         <label>Please leave your message</label>
                         <textarea

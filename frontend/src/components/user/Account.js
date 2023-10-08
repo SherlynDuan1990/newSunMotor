@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'; // Assuming you have Redux to store u
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL; 
+
 const Account = () => {
     const user = useSelector((state) => state.auth);
     const initialState = {
@@ -26,7 +28,7 @@ const Account = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.put('/api/v1/me/update', formData); // Update user profile data
+      const res = await axios.put(`${apiUrl}/api/v1/me/update`, formData); // Update user profile data
       if (res.data.success) {
         alert.success('Profile updated successfully');
       }
@@ -39,7 +41,7 @@ const Account = () => {
     // Fetch user data when the component mounts
     async function fetchUserData() {
       try {
-        const res = await axios.get('/api/v1/me');
+        const res = await axios.get(`${apiUrl}/api/v1/me`);
         if (res.data.success) {
           const userData = res.data.user;
           setFormData({

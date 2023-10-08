@@ -5,6 +5,8 @@ import { useAlert } from 'react-alert';
 import { logout, clearErrors } from '../../actions/userActions';
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL; 
+
 const Footer = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
@@ -15,7 +17,7 @@ const Footer = () => {
     // Fetch user data when the component mounts
     async function fetchUserData() {
       try {
-        const res = await axios.get('http://127.0.0.1:4000/api/v1/me'); // Replace with your API endpoint
+        const res = await axios.get(` ${apiUrl}/api/v1/me`); // Replace with your API endpoint
         if (res.data.success) {
           const userData = res.data.user;
           setUserData(userData);

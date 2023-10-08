@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL; 
+
 const Header = () => {
   const alert = useAlert();
   const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
@@ -20,7 +22,7 @@ const Header = () => {
     // Fetch user data when the component mounts
     async function fetchUserData() {
       try {
-        const res = await axios.get('http://127.0.0.1:4000/api/v1/me'); // Replace with your API endpoint
+        const res = await axios.get(`${apiUrl}/api/v1/me`); // Replace with your API endpoint
 
         if (res.data.success) {
           const userData = res.data.user;

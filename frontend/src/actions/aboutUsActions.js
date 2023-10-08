@@ -6,12 +6,14 @@ import {
   CLEAR_ERRORS,
 } from "../constants/aboutUsConstants";
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL; 
+
 // Fetch About Us data
 export const fetchAboutUs = () => async (dispatch) => {
   try {
     dispatch({ type: FETCH_ABOUT_US_REQUEST });
 
-    const {data} = await axios.get('/api/v1/aboutUs'); 
+    const {data} = await axios.get(`${apiUrl}/api/v1/aboutUs`); 
   
 
 

@@ -23,12 +23,14 @@ import {
 
 } from "../constants/carConstants"
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 export const getCars = (keyword = "", currentPage = 1, yearRange, priceRange, kilometersRange) => async (dispatch) => {
     
     try {
         dispatch({ type: ALL_CARS_REQUEST });
 
-        let url = `/api/v1/cars/?page=${currentPage}`;
+        let url = ` ${apiUrl}/api/v1/cars/?page=${currentPage}`;
 
         if (keyword) {
             url += `&keyword=${keyword}`;
@@ -70,7 +72,7 @@ export const getAdminCars = (keyword = "", currentPage = 1, yearRange, priceRang
     try {
         dispatch({ type: ALL_CARS_REQUEST });
 
-        let url = `/api/v1/admin/cars/?page=${currentPage}`;
+        let url = `${apiUrl}/api/v1/admin/cars/?page=${currentPage}`;
 
         if (keyword) {
             url += `&keyword=${keyword}`;
@@ -112,7 +114,7 @@ export const getAdminCars = (keyword = "", currentPage = 1, yearRange, priceRang
 export const getCarDetails=(id)=> async (dispatch)=>{
     try{
         dispatch({type:CARS_DETAILS_REQUEST})
-        const {data} = await axios.get(`/api/v1/car/${id}`)
+        const {data} = await axios.get(` ${apiUrl}/api/v1/car/${id}`)
 
 
         dispatch({
@@ -137,7 +139,7 @@ export const bookTestdrive = (id, bookingData) => async (dispatch) => {
         dispatch({ type: BOOK_TEST_DRIVE_REQUEST });
         
 
-        const { data } = await axios.post(`/api/v1/car/${id}/testdrive`, bookingData);
+        const { data } = await axios.post(` ${apiUrl}/api/v1/car/${id}/testdrive`, bookingData);
 
         console.log(data)
 
@@ -161,7 +163,7 @@ export const addNewCar = (carData) => async (dispatch) => {
     dispatch({ type: ADD_NEW_CAR_REQUEST });
 
     
-    const response = await axios.post('http://127.0.0.1:4000/api/v1/admin/car/new', carData);
+    const response = await axios.post(`${apiUrl}/api/v1/admin/car/new`, carData);
 
     if (response.data.success) {
       dispatch({
@@ -188,7 +190,7 @@ export const updateCar =(carData, id) => async (dispatch) => {
         dispatch({ type: UPDATE_CAR_REQUEST });
     
         
-        const response = await axios.put(`http://127.0.0.1:4000/api/v1/admin/car/${id}`, carData);
+        const response = await axios.put(` ${apiUrl}/api/v1/admin/car/${id}`, carData);
 
         
     
@@ -218,7 +220,7 @@ export const getListingVehicles = () => async (dispatch) => {
   
       // Make an API request to fetch listing vehicles
       // Replace 'fetchListingVehicles' with your actual API call
-      const response = await fetch('http://127.0.0.1:4000/api/v1/car/dashboard/listingVehicles');
+      const response = await fetch(`${apiUrl}/api/v1/car/dashboard/listingVehicles`);
       const data = await response.json();
   
   

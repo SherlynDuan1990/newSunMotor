@@ -23,7 +23,7 @@ const {isAuthenticatedUser, authorizeRoles}= require ("../middlewares/auth")
 
 router.route("/cars").get(getCars);
 
-router.route("/admin/cars").get(isAuthenticatedUser, authorizeRoles("admin"), getAdminCars);
+router.route("/admin/cars").get( getAdminCars);
 
 
 router.route("/car/:id").get(getSingleCar);

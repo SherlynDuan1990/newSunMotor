@@ -7,11 +7,13 @@ import {
 
 } from "../constants/contractConstants"
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL; 
+
 export const addContract = (contractData) => async (dispatch) => {
     dispatch({ type: ADD_CONTRACT_REQUEST });
   
     try {
-      const {data} = await axios.post('/api/v1/admin/contract', contractData)
+      const {data} = await axios.post(`${apiUrl}/api/v1/admin/contract`, contractData)
     
 
   

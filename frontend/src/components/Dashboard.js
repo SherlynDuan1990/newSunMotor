@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL; 
+
 const Dashboard = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Dashboard = () => {
   // Define the getCustomers function here
   const getCustomers = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:4000/api/v1/admin/customers');
+      const response = await axios.get(`${apiUrl}/api/v1/admin/customers`);
       const customersData = response.data;
       // Check if customersData is an object with a 'customers' property
       if (customersData && Array.isArray(customersData.customers)) {
@@ -54,7 +56,7 @@ const Dashboard = () => {
 
   const handleTimeRangeSelect = async (selectedTimeRange) => {
     try {
-      const response = await axios.post('http://127.0.0.1:4000/api/v1/car/dashboard/soldVehicles', {
+      const response = await axios.post(`${apiUrl}/api/v1/car/dashboard/soldVehicles`, {
         timeRange: selectedTimeRange,
       });
 

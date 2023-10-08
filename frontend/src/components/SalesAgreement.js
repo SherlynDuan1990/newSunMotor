@@ -10,9 +10,6 @@ const SalesAgreement = () => {
   // Define a ref for the printable content
   const printableRef = useRef(null);
 
-  // Define state to control whether to display the printable content
-  const [showPrintableContent, setShowPrintableContent] = useState(false);
-
   // Define state for customer and contract data
   const [customerData, setCustomerData] = useState({
     fullName: '',
@@ -41,8 +38,8 @@ const SalesAgreement = () => {
     setContractData({ ...contractData, [name]: value });
   };
 
-  // Handle the "Confirm" button click
-  const handleConfirm = () => {
+  // Handle the "Confirm and Print" button click
+  const handleConfirmAndPrint = () => {
     // Check if all required fields are filled
     if (
       customerData.fullName === '' ||
@@ -56,13 +53,9 @@ const SalesAgreement = () => {
     ) {
       alert.error('Please fill in all required fields.');
     } else {
-      setShowPrintableContent(true);
-    }
-  };
+      // Print the content
+      window.print();
 
-  // Handle the "Print" button click
-  const handlePrint = () => {
-    if (showPrintableContent) {
       const dataToSubmit = {
         ...customerData,
         contract: {
@@ -93,12 +86,8 @@ const SalesAgreement = () => {
         plateNumber: '',
         price: '',
       });
-
-      // Print the content
-      window.print();
     }
   };
-  
 
     
   return (
@@ -247,9 +236,8 @@ const SalesAgreement = () => {
       
       
         <div className="confirm-print">
-          <button onClick={handleConfirm} style={{ marginRight: '10px' }}>Confirm</button>
-          <button onClick={handlePrint}>Print</button>
-        </div>
+        <button onClick={handleConfirmAndPrint}>Confirm and Print</button>
+      </div>
     </div>
 
   );

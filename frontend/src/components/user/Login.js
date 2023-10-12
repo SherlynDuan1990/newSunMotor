@@ -32,10 +32,13 @@ const Login = () => {
           dispatch(clearErrors());
         }
       }, [dispatch, alert, isAuthenticated, error]);
+      
 
     const submitHandler =(e)=> {
         e.preventDefault();
         dispatch(login(email,password))
+
+
     }
 
 

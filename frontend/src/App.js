@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from './components/layout/Header';

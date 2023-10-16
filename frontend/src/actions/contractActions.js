@@ -1,4 +1,4 @@
-import axios from "axios";
+import {axios} from "../request";
 import {
     ADD_CONTRACT_REQUEST,
     ADD_CONTRACT_SUCCESS,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'; // Assuming you have Redux to store user data
-import axios from 'axios';
+import axios from "axios";
 import { useAlert } from 'react-alert';
 
 const apiUrl = process.env.REACT_APP_API_BASE_URL; 
@@ -42,8 +42,10 @@ const Account = () => {
     async function fetchUserData() {
       try {
         const res = await axios.get(`${apiUrl}/api/v1/me`);
+        
         if (res.data.success) {
           const userData = res.data.user;
+          console.log(userData)
           setFormData({
             name: userData.name,
             email: userData.email,

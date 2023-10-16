@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { useAlert } from 'react-alert';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addNewCar , clearErrors } from '../../actions/carActions';
 import { useNavigate } from 'react-router-dom';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-import axios from 'axios'; 
+import {axios} from "../../request";
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal';
 

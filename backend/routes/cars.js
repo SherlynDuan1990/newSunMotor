@@ -23,23 +23,23 @@ const {isAuthenticatedUser, authorizeRoles}= require ("../middlewares/auth")
 
 router.route("/cars").get(getCars);
 
-router.route("/admin/cars").get(getAdminCars);
+router.route("/admin/cars").get(isAuthenticatedUser, getAdminCars);
 
 
 router.route("/car/:id").get(getSingleCar);
 
 router.route("/car/:id/testdrive").post(bookTestdrive);
 
-router.route("/admin/car/new").post( newCar); 
+router.route("/admin/car/new").post(isAuthenticatedUser, newCar); 
 
 router.route("/admin/car/:id")
-                            .put( updateCar) 
-                            .delete( deleteCar) 
-router.route("/car/:id/status").put( updateCarStatus);  
+                            .put( isAuthenticatedUser, updateCar) 
+                            .delete(isAuthenticatedUser,  deleteCar) 
+router.route("/car/:id/status").put( isAuthenticatedUser, updateCarStatus);  
 
-router.route("/car/dashboard/listingVehicles").get(getListingVehicles); 
+router.route("/car/dashboard/listingVehicles").get(isAuthenticatedUser, getListingVehicles); 
 
-router.route("/car/dashboard/soldVehicles").post( getSoldVehicles); 
+router.route("/car/dashboard/soldVehicles").post( isAuthenticatedUser, getSoldVehicles); 
 
 
 

@@ -1,4 +1,5 @@
-import axios from "axios";
+
+import {axios} from "../request";
 import {
     ALL_CARS_REQUEST, 
     ALL_CARS_SUCCESS,
@@ -220,8 +221,8 @@ export const getListingVehicles = () => async (dispatch) => {
   
       // Make an API request to fetch listing vehicles
       // Replace 'fetchListingVehicles' with your actual API call
-      const response = await fetch(`${apiUrl}/api/v1/car/dashboard/listingVehicles`);
-      const data = await response.json();
+      const response = await axios.get(`${apiUrl}/api/v1/car/dashboard/listingVehicles`);
+      const data = response.data;
   
   
       dispatch({

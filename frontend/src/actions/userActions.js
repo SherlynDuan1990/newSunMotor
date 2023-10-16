@@ -1,5 +1,5 @@
 // authActions.js
-import axios from 'axios';
+import {axios} from "../request";
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -9,6 +9,7 @@ import {
   LOGOUT_SUCCESS, 
   LOGOUT_FAIL 
 } from '../constants/userConstants';
+import Cookies from 'js-cookie'
 
 const apiUrl = process.env.REACT_APP_API_BASE_URL; 
 
@@ -24,7 +25,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(`${apiUrl}/api/v1/login`, { email, password }, config);
-  
+    Cookies.set('token',data.token)
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data.user,
@@ -49,6 +50,7 @@ export const logout = () => async (dispatch) => {
     dispatch({ type: LOGOUT_SUCCESS });
     localStorage.removeItem('user');
     window.location.reload();
+    Cookies.remove('token')
   } catch (error) {
     dispatch({
       type: LOGOUT_FAIL,

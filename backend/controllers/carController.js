@@ -352,7 +352,6 @@ exports.getListingVehicles = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-// Get sold vehicles based on the selected time range
 exports.getSoldVehicles = catchAsyncErrors(async (req, res, next) => {
   const { timeRange } = req.body;
   let startDate, endDate;
@@ -360,24 +359,22 @@ exports.getSoldVehicles = catchAsyncErrors(async (req, res, next) => {
   // Calculate the start and end dates based on the selected time range
   const currentDate = new Date();
   
-
   switch (timeRange) {
     case 'lastMonth':
-  
-      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
-      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate() - 1);
+      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
       break;
     case 'lastThreeMonths':
-      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1);
-      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, currentDate.getDate() - 1);
+      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
       break;
     case 'lastSixMonths':
-      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, 1);
-      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, currentDate.getDate() - 1);
+      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
       break;
     case 'lastYear':
-      startDate = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), 1);
-      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      startDate = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate() - 1);
+      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
       break;
     default:
       startDate = new Date(0); // Default to start from the beginning
@@ -385,15 +382,12 @@ exports.getSoldVehicles = catchAsyncErrors(async (req, res, next) => {
   }
 
   const soldVehicles = await Customer.find({
-    
     'contract.createdAt': {
       $gte: startDate,
       $lte: endDate,
     },
   });
-
  
-  
   // Calculate the total number of sold vehicles and the total amount
   const soldVehicleCount = soldVehicles.length;
   const totalAmount = soldVehicles.reduce((sum, customer) => {
@@ -408,5 +402,4 @@ exports.getSoldVehicles = catchAsyncErrors(async (req, res, next) => {
     },
   });
 });
-
 

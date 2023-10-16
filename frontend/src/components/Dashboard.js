@@ -7,7 +7,7 @@ import Loader from './layout/Loader';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 
-import axios from 'axios';
+import {axios} from "../request";
 
 const apiUrl = process.env.REACT_APP_API_BASE_URL; 
 
